@@ -13,8 +13,6 @@ export const Footer = () => {
   const socialLinks = [
     { name: "GITHUB", url: profile?.socialLinks?.github || "https://github.com/4yangXYAO", isExternal: true },
     { name: "LINKEDIN", url: profile?.socialLinks?.linkedin || "#", isExternal: true },
-    { name: "RESOURCES", url: "#", isExternal: false },
-    { name: "ADMIN", url: "/admin/dashboard", isExternal: false },
   ];
 
   return (

@@ -54,8 +54,8 @@ export const ProjectsPage = () => {
             MISSION_LOG: <span className="text-gray-500">PROJECTS</span>
           </h1>
           <p className="font-sans text-gray-400 max-w-2xl text-lg leading-relaxed">
-            Index of executed architectures and experimental prototypes.
-            Each entry represents a secure protocol of technical excellence.
+            Daftar portofolio yang merangkum berbagai jenis proyek teknis dan 
+            eksperimen pengembangan sistem yang telah saya selesaikan.
           </p>
         </header>
 
