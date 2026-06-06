@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { profileService } from "../services/profileService";
@@ -9,6 +10,9 @@ export const AboutPage = () => {
       queryKey: ["profile"],
       queryFn: () => profileService.get(),
    });
+ 
+   const timelineRef = useRef<HTMLDivElement>(null);
+   const [isDragging, setIsDragging] = useState(false);
 
    // Fallback data if database is empty
    const defaultProfile = {
@@ -169,8 +173,7 @@ export const AboutPage = () => {
                   <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#000000] to-transparent z-10"></div>
                   <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#000000] to-transparent z-10"></div>
 
-                  <motion.div
-                     className="flex gap-8 whitespace-nowrap"
+                  <motion.div drag="x" dragConstraints={{ left: -3000, right: 0 }} className="flex gap-8 whitespace-nowrap cursor-grab active:cursor-grabbing"
                      animate={{
                         x: ["0%", "-50%"],
                      }}
@@ -246,7 +249,7 @@ export const AboutPage = () => {
                            </div>
                            <div className="relative h-12 flex items-center overflow-hidden">
                               <motion.div
-                                 className="flex gap-x-12 whitespace-nowrap absolute"
+                                 drag="x" dragConstraints={{ left: -1000, right: 0 }} className="flex gap-x-12 whitespace-nowrap absolute cursor-grab active:cursor-grabbing"
                                  animate={{
                                     x: ["0%", "-50%"]
                                  }}
@@ -301,5 +304,6 @@ const TimelineCard = ({ item }: any) => (
       {/* Global screen-side accents removed */}
    </div>
 );
+
 
 

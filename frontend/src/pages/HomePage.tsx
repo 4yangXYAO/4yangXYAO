@@ -62,7 +62,7 @@ export const HomePage = () => {
         >
           <span className="w-1.5 h-1.5 bg-[#00daf7] rounded-full animate-status-blink shadow-[0_0_8px_#00daf7]"></span>
           <span className="font-mono text-xs text-[#00daf7] tracking-[0.5em] uppercase">
-            AUTHOR :: {profile?.name?.toUpperCase() || "XYAON'S_PORTO"}
+            LET'S :: {profile?.name?.toUpperCase()}
           </span>
         </motion.div>
 
@@ -72,8 +72,8 @@ export const HomePage = () => {
           transition={{ duration: 0.8 }}
           className="font-display text-5xl md:text-8xl lg:text-[120px] text-white max-w-7xl mb-10 leading-[0.85] tracking-tighter uppercase z-10"
         >
-          ARCHITECTING <br />
-          <span className="text-[#00daf7] drop-shadow-[0_0_30px_rgba(0,218,247,0.2)]">DIGITAL_DREAMS</span>
+          BUILD <br />
+          <span className="text-[#00daf7] drop-shadow-[0_0_30px_rgba(0,218,247,0.2)]">EVERYTHING</span>
         </motion.h1>
 
         <motion.div
@@ -83,9 +83,9 @@ export const HomePage = () => {
           className="flex flex-col items-center gap-6 z-10 mb-16"
         >
           <div className="h-0.5 w-24 bg-gradient-to-r from-transparent via-[#00daf7]/40 to-transparent"></div>
-          <p className="font-sans text-gray-400 max-w-2xl text-lg md:text-xl leading-relaxed px-4">
-            Membangun antarmuka kelas dunia yang menggabungkan presisi teknis dengan estetika futuristik.
-            <span className="block mt-4 text-[#00daf7]/60 font-mono text-xs tracking-widest">EXECUTED_BY::{profile?.name?.toUpperCase() || "KHARIS_JALALUDIN"}</span>
+          <p className="font-sans text-gray-300 max-w-2xl text-xl md:text-2xl italic leading-relaxed px-4">
+            "No Complain, Never Explain"
+            <span className="block mt-4 text-[#00daf7]/60 font-mono text-[10px] tracking-[0.3em] uppercase not-italic">EXECUTED_BY::{profile?.name?.toUpperCase() || "KHARIS_JALALUDIN"}</span>
           </p>
         </motion.div>
 
@@ -96,7 +96,7 @@ export const HomePage = () => {
           className="flex flex-wrap justify-center gap-6 z-10"
         >
           <Link to="/projects" className="cyber-glow-btn px-12 py-4 flex items-center gap-4 group">
-            <span>VIEW_ALL_WORK</span>
+            <span>ABOUT_ME</span>
             <span className="material-symbols-outlined text-sm group-hover:translate-x-2 transition-transform">arrow_forward</span>
           </Link>
           {/* CV Button Removed */}
