@@ -95,11 +95,14 @@ export const HomePage = () => {
           transition={{ delay: 0.6 }}
           className="flex flex-wrap justify-center gap-6 z-10"
         >
-          <Link to="/projects" className="cyber-glow-btn px-12 py-4 flex items-center gap-4 group">
+          <Link to="/about" className="cyber-glow-btn px-12 py-4 flex items-center gap-4 group">
             <span>ABOUT_ME</span>
-            <span className="material-symbols-outlined text-sm group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            <span className="material-symbols-outlined text-sm group-hover:translate-x-2 transition-transform">person</span>
           </Link>
-          {/* CV Button Removed */}
+          <Link to="/projects" className="px-12 py-4 bg-[#121212]/50 backdrop-blur-md text-white font-mono text-xs tracking-[0.3em] border border-white/10 hover:border-[#00daf7]/40 transition-all uppercase flex items-center gap-4">
+            <span>VIEW_ALL_WORK</span>
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </Link>
         </motion.div>
 
         {/* Vertical HUD Line */}
