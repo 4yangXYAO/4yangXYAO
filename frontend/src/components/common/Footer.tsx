@@ -28,7 +28,7 @@ export const Footer = () => {
             Project By XYAON
           </div>
           <div className="font-mono text-[10px] text-gray-500 tracking-[0.2em] uppercase">
-            WITH Aya, jester, Rena, and ❤️.
+            WITH Alya, Jester, Rena, and ❤️.
           </div>
         </div>
 
