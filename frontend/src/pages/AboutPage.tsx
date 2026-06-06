@@ -13,7 +13,7 @@ export const AboutPage = () => {
    // Fallback data if database is empty
    const defaultProfile = {
       name: "Kharis Jalaludin",
-      bio: "A clinical architect of digital ecosystems. Developer obsessed with absolute technical control and aesthetic excellence.",
+      bio: "I am someone who is consistently working on self-growth in the field of Information Technology (IT). I learn quickly, stay curious, and focus on improving both my skills and mindset. I believe small, consistent progress leads to meaningful long-term results",
       tagline: "ARCHITECTING DIGITAL_DREAMS",
       skills: ["React", "Typescript", "Node.js", "Vite", "Tailwind", "MongoDB"],
       avatar: "/media/profile.webp"
