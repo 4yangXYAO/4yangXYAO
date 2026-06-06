@@ -6,22 +6,14 @@ import { PageLoader, SkeletonCard } from "../components/common/PageLoader";
 
 export const ProjectsPage = () => {
   const {
-    data: projects,
+    data: apiProjects,
     isLoading,
-    error,
   } = useQuery({
     queryKey: ["projects"],
     queryFn: () => projectService.getAll(),
   });
 
-  if (error) {
-    return (
-      <div className="section-spacing text-center text-[#ff3e3e] font-mono">
-        <p className="text-5xl mb-4">🚨</p>
-        <p className="text-xl">SYSTEM_FAILURE: DATA_FETCH_ERROR</p>
-      </div>
-    );
-  }
+  const projects = apiProjects || [];
 
   return (
     <motion.div

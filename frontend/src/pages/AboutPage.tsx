@@ -5,21 +5,23 @@ import { PageLoader } from "../components/common/PageLoader";
 import { getImageUrl } from "../utils/constants";
 
 export const AboutPage = () => {
-   const { data: profile, isLoading, error } = useQuery({
+   const { data: apiProfile, isLoading } = useQuery({
       queryKey: ["profile"],
       queryFn: () => profileService.get(),
    });
 
-   if (isLoading) return <PageLoader />;
+   // Fallback data if database is empty
+   const defaultProfile = {
+      name: "Kharis Jalaludin",
+      bio: "A clinical architect of digital ecosystems. Developer obsessed with absolute technical control and aesthetic excellence.",
+      tagline: "ARCHITECTING DIGITAL_DREAMS",
+      skills: ["React", "Typescript", "Node.js", "Vite", "Tailwind", "MongoDB"],
+      avatar: "/media/profile.webp"
+   };
 
-   if (error || !profile) {
-      return (
-         <div className="section-spacing text-center text-gray-500 font-mono">
-            <p className="text-5xl mb-4">⚠️</p>
-            <p className="text-xl">DATA_NOT_FOUND</p>
-         </div>
-      );
-   }
+   const profile = apiProfile || defaultProfile;
+
+   if (isLoading) return <PageLoader />;
 
    const avatarUrl = getImageUrl(profile.avatar);
 
