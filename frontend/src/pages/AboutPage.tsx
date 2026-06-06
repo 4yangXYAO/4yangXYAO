@@ -178,7 +178,7 @@ export const AboutPage = () => {
                         x: {
                            repeat: Infinity,
                            repeatType: "loop",
-                           duration: 100,
+                           duration: 140,
                            ease: "linear",
                         },
                      }}
@@ -251,7 +251,7 @@ export const AboutPage = () => {
                                     x: ["0%", "-50%"]
                                  }}
                                  transition={{
-                                    duration: 100,
+                                    duration: 140,
                                     repeat: Infinity,
                                     ease: "linear"
                                  }}
