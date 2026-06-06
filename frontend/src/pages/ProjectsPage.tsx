@@ -13,7 +13,35 @@ export const ProjectsPage = () => {
     queryFn: () => projectService.getAll(),
   });
 
-  const projects = apiProjects || [];
+  // Fallback data if database is empty
+  const defaultProjects = [
+    {
+      _id: "mock-1",
+      title: "Cyber Elite Portfolio",
+      description: "A high-end professional portfolio with cyber-themed aesthetics and precision engineering.",
+      technologies: ["React", "TypeScript", "Tailwind", "Framer Motion"],
+      githubLink: "https://github.com/4yangXYAO",
+      demoLink: "#",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800",
+      slug: "cyber-elite-portfolio",
+      featured: true,
+      order: 1
+    },
+    {
+      _id: "mock-2",
+      title: "AI Mission Dashboard",
+      description: "Real-time telemetry dashboard for monitoring AI agent deployments and mission logs.",
+      technologies: ["Next.js", "Node.js", "MongoDB", "Express"],
+      githubLink: "https://github.com/4yangXYAO",
+      demoLink: "#",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800",
+      slug: "ai-mission-dashboard",
+      featured: true,
+      order: 2
+    }
+  ];
+
+  const projects = apiProjects?.length ? apiProjects : defaultProjects;
 
   return (
     <motion.div
