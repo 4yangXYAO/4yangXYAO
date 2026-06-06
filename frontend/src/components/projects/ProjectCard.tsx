@@ -62,13 +62,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
          </p>
 
          <div className="mt-auto flex items-center justify-between">
-            <Link
-              to={`/projects/${project.slug}`}
-              className="group/link flex items-center gap-2 text-[#00daf7] font-mono text-xs tracking-widest uppercase hover:gap-4 transition-all"
-            >
-              BUKA_PROTOKOL
-              <span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>
-            </Link>
+          {/* BUKA_PROTOKOL HIDDEN */}
          </div>
       </div>
       
