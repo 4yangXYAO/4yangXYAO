@@ -18,7 +18,7 @@ export const ProjectsPage = () => {
     {
       _id: "mock-1",
       title: "Cyber Elite Portfolio",
-      description: "A high-end professional portfolio with cyber-themed aesthetics and precision engineering.",
+      description: "A high-end professional portfolio with cyber-themed aesthetics and precision engineering. Built with absolute technical control.",
       technologies: ["React", "TypeScript", "Tailwind", "Framer Motion"],
       githubLink: "https://github.com/4yangXYAO",
       demoLink: "#",
@@ -30,7 +30,7 @@ export const ProjectsPage = () => {
     {
       _id: "mock-2",
       title: "AI Mission Dashboard",
-      description: "Real-time telemetry dashboard for monitoring AI agent deployments and mission logs.",
+      description: "Real-time telemetry dashboard for monitoring AI agent deployments (GPT, Gemini, Grok) and mission logs.",
       technologies: ["Next.js", "Node.js", "MongoDB", "Express"],
       githubLink: "https://github.com/4yangXYAO",
       demoLink: "#",
@@ -38,6 +38,18 @@ export const ProjectsPage = () => {
       slug: "ai-mission-dashboard",
       featured: true,
       order: 2
+    },
+    {
+      _id: "mock-3",
+      title: "OpenCode System Architect",
+      description: "A specialized tool for architecting codebases using the OpenCode protocol and Hermes agent integration.",
+      technologies: ["TypeScript", "LangGraph", "Python"],
+      githubLink: "https://github.com/4yangXYAO",
+      demoLink: "#",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800",
+      slug: "opencode-architect",
+      featured: true,
+      order: 3
     }
   ];
 
