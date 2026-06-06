@@ -32,6 +32,16 @@ app.get("/", (_req, res) => {
   res.json({ message: "API running" });
 });
 
+// Middleware to ensure DB is connected
+app.use(async (_req, _res, next) => {
+  try {
+    await connectDB(mongoUri);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1/profile", profileRoutes);
