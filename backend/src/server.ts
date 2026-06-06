@@ -39,14 +39,18 @@ app.use("/api/v1/messages", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const start = async (): Promise<void> => {
-  await connectDB(mongoUri);
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
-};
+export default app;
 
-start().catch((error: unknown) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  const start = async (): Promise<void> => {
+    await connectDB(mongoUri);
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  };
+
+  start().catch((error: unknown) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  });
+}
