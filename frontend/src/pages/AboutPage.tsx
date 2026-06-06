@@ -26,49 +26,49 @@ export const AboutPage = () => {
    const avatarUrl = getImageUrl(profile.avatar);
 
    const careerTimeline = [
-       {
-          period: "2024  NOW",
-          role: "UI/UX Engineer",
-          company: "NOVA_FINTECH_SOLUTIONS",
-          description: "Bridge the gap between low-latency financial models and executive-grade visual interfaces. Developed a proprietary design system used across 14 international banking platforms.",
-          tags: ["DESIGN_SYS", "REACT"]
-       },
-       {
-          period: "2025  2026",
-          role: "Junior Frontend Developer, AI EXPERIMENT",
-          company: "-",
-          description: "Orchestrating the frontend infrastructure for next-gen telemetry dashboards. Implementing real-time data streaming protocols and custom WebGL visualization engines.",
-          tags: ["SYSTEM_DESIGN", "WEBGL"]
-       },
-       {
-          period: "SEP 2024  MAR 2025",
-          role: "F&B Service",
-          company: "KOPI APA? (Drink and Snack)",
-          description: "Managing basic cleaning, menu recommendations, and equipment preparation.",
-          tags: ["F&B_SERVICE", "CUSTOMER_CARE"]
-       },
-       {
-          period: "MEI 2024  SEP 2024",
-          role: "F&B Service",
-          company: "WeCaffe (Drink and Snack)",
-          description: "Optimized customer satisfaction through personalized service and managed production equipment.",
-          tags: ["HOSPITALITY", "OPS"]
-       },
-       {
-          period: "JUL 2023  MAR 2024",
-          role: "Production Helper",
-          company: "CV PANGAN BERKAH SENTOSA",
-          description: "Assisted in daily production following SOPs and quality control sorting.",
-          tags: ["PRODUCTION", "SOP"]
-       },
-       {
-          period: "OKT 2020  FEB 2021",
-          role: "Internship: Help Desk & Technician",
-          company: "PT TELKOM INDONESIA",
-          description: "Handled customer technical queries and performed field surveys/installations.",
-          tags: ["NETWORK", "TELCO"]
-       }
-    ];
+      {
+         period: "2024  NOW",
+         role: "UI/UX Engineer",
+         company: "NOVA_FINTECH_SOLUTIONS",
+         description: "Bridge the gap between low-latency financial models and executive-grade visual interfaces. Developed a proprietary design system used across 14 international banking platforms.",
+         tags: ["DESIGN_SYS", "REACT"]
+      },
+      {
+         period: "2025  2026",
+         role: "Junior Frontend Developer, AI EXPERIMENT",
+         company: "-",
+         description: "Orchestrating the frontend infrastructure for next-gen telemetry dashboards. Implementing real-time data streaming protocols and custom WebGL visualization engines.",
+         tags: ["SYSTEM_DESIGN", "WEBGL"]
+      },
+      {
+         period: "SEP 2024  MAR 2025",
+         role: "F&B Service",
+         company: "KOPI APA? (Drink and Snack)",
+         description: "Managing basic cleaning, menu recommendations, and equipment preparation.",
+         tags: ["F&B_SERVICE", "CUSTOMER_CARE"]
+      },
+      {
+         period: "MEI 2024  SEP 2024",
+         role: "F&B Service",
+         company: "WeCaffe (Drink and Snack)",
+         description: "Optimized customer satisfaction through personalized service and managed production equipment.",
+         tags: ["HOSPITALITY", "OPS"]
+      },
+      {
+         period: "JUL 2023  MAR 2024",
+         role: "Production Helper",
+         company: "CV PANGAN BERKAH SENTOSA",
+         description: "Assisted in daily production following SOPs and quality control sorting.",
+         tags: ["PRODUCTION", "SOP"]
+      },
+      {
+         period: "OKT 2020  FEB 2021",
+         role: "Internship: Help Desk & Technician",
+         company: "PT TELKOM INDONESIA",
+         description: "Handled customer technical queries and performed field surveys/installations.",
+         tags: ["NETWORK", "HELPDESK"]
+      }
+   ];
 
    const educationTimeline = [
       {
@@ -178,7 +178,7 @@ export const AboutPage = () => {
                         x: {
                            repeat: Infinity,
                            repeatType: "loop",
-                           duration: 50,
+                           duration: 100,
                            ease: "linear",
                         },
                      }}
@@ -251,7 +251,7 @@ export const AboutPage = () => {
                                     x: ["0%", "-50%"]
                                  }}
                                  transition={{
-                                    duration: 25,
+                                    duration: 100,
                                     repeat: Infinity,
                                     ease: "linear"
                                  }}
@@ -301,4 +301,5 @@ const TimelineCard = ({ item }: any) => (
       {/* Global screen-side accents removed */}
    </div>
 );
+
 
