@@ -156,7 +156,7 @@ export const AboutPage = () => {
                      <div className="lg:col-span-1 h-full hidden lg:block"></div>
                      <div className="lg:col-span-7">
                         <p className="font-sans text-gray-400 text-xl leading-relaxed">
-                           A clinical architect of digital ecosystems. My career is a sequence of precision-engineered milestones, transforming abstract business logic into high-performance user interfaces. This is the timeline of a developer obsessed with absolute technical control and aesthetic excellence.
+                           {profile.bio}
                         </p>
                      </div>
                      <div className="lg:col-span-4 flex justify-end">
