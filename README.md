@@ -22,6 +22,7 @@ I'm continuously improving my technical skills, mindset, and problem-solving abi
 - Problem Solving
 - Self-Learning
 - Technology Exploration
+- Sleep 
 
 ---
 
