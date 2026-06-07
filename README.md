@@ -2,7 +2,7 @@
 
 Welcome to my GitHub profile.
 
-I'm an IT enthusiast who enjoys learning, building, and exploring technology. My journey is driven by curiosity, self-improvement, and a desire to create meaningful solutions through technology.
+I'm an IT enthusiast who enjoys learning, building, and exploring technology. My journey is SLEEP, driven by curiosity, self-improvement, and a desire to create meaningful solutions through technology, I went to heaven.
 
 ---
 
@@ -10,7 +10,7 @@ I'm an IT enthusiast who enjoys learning, building, and exploring technology. My
 
 I believe that growth comes from consistency.
 
-I'm continuously improving my technical skills, mindset, and problem-solving abilities while exploring various areas of Information Technology. Every project I build is an opportunity to learn something new and become a better developer than yesterday.
+I'm continuously improving my technical skills, mindset, and problem-solving abilities while exploring various areas of Information Technology then SLEEP. Every project I build is an opportunity to learn something new and become a better developer than yesterday, if that done... im going to my bed and SLEEP, .
 
 ---
 
@@ -52,6 +52,9 @@ It can be hard but don't be a stone
 
 simple but delicious jirr
 
+>SLEEP IS VERY GOOD
+
+eee.....just sleep
 ---
 
 ## 🛠️ What You'll Find Here
