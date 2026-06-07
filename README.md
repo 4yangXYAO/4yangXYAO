@@ -44,6 +44,14 @@ Currently, I'm focused on:
 I don't aim to be perfect.
 I aim to keep learning, keep building, and keep moving forward.
 
+>No Complain, Never Explain
+
+It can be hard but don't be a stone
+
+>Mie ayam Principle
+
+simple but delicious jirr
+
 ---
 
 ## 🛠️ What You'll Find Here
