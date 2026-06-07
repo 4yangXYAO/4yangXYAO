@@ -2,7 +2,7 @@
 
 Welcome to my GitHub profile.
 
-I'm an IT enthusiast who enjoys learning, building, and exploring technology. My journey is SLEEP, driven by curiosity, self-improvement, and a desire to create meaningful solutions through technology, I went to heaven.
+I'm an IT enthusiast who enjoys learning, building, and exploring technology. My journey is SLEEP, driven by curiosity, self-improvement, and a desire to create meaningful solutions through technology, I hope to go to heaven.
 
 ---
 
