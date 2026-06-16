@@ -7,6 +7,7 @@ import path from "path";
 import { connectDB } from "./config/db";
 import authRoutes from "./routes/authRoutes";
 import projectRoutes from "./routes/projectRoutes";
+import stackroutes from "./routes/StackRoutes"; 
 import profileRoutes from "./routes/profileRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware";
@@ -46,6 +47,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/messages", messageRoutes);
+app.use("/api/v1/stacks", stackroutes);
 app.use(notFound);
 app.use(errorHandler);
 

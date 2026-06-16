@@ -23,7 +23,9 @@ export const ProjectDetailPage = () => {
   if (error || !project) {
     return (
       <div className="section-spacing text-center font-mono text-[#ff3e3e]">
-        <h1 className="text-4xl font-bold mb-4 uppercase">PROTOCOL_ERROR: NO_ENTRY</h1>
+        <h1 className="text-4xl font-bold mb-4 uppercase">
+          PROTOCOL_ERROR: NO_ENTRY
+        </h1>
         <p className="text-gray-500 mb-8 tracking-widest">
           The requested data stream for {slug?.toUpperCase()} is unavailable.
         </p>
@@ -45,7 +47,10 @@ export const ProjectDetailPage = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Cyber Breadcrumbs */}
         <nav className="flex mb-12 font-mono text-[10px] text-gray-500 tracking-[0.2em] uppercase overflow-x-auto pb-4 border-b border-white/5">
-          <Link to="/" className="hover:text-[#00daf7] transition-colors shrink-0">
+          <Link
+            to="/"
+            className="hover:text-[#00daf7] transition-colors shrink-0"
+          >
             ROOT
           </Link>
           <span className="mx-4 text-[#00daf7]/40">::</span>
@@ -70,11 +75,11 @@ export const ProjectDetailPage = () => {
             className="lg:col-span-12 xl:col-span-8 mb-12 lg:mb-0"
           >
             <div className="relative p-2 border border-[#00daf7]/20 bg-[#121212]/30 backdrop-blur-sm">
-               <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#00daf7]" />
-               <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#00daf7]" />
-               <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#00daf7]" />
-               <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#00daf7]" />
-               
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#00daf7]" />
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#00daf7]" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#00daf7]" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#00daf7]" />
+
               <div className="aspect-video overflow-hidden bg-black">
                 {imageUrl ? (
                   <img
@@ -103,7 +108,10 @@ export const ProjectDetailPage = () => {
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-8 leading-tight uppercase tracking-tighter">
               {project.title.split(" ").map((w, i) => (
-                <span key={i} className={i === 0 ? "text-white" : "text-[#00daf7]"}>
+                <span
+                  key={i}
+                  className={i === 0 ? "text-white" : "text-[#00daf7]"}
+                >
                   {w}{" "}
                 </span>
               ))}
@@ -146,23 +154,23 @@ export const ProjectDetailPage = () => {
                 </a>
               )}
             </div>
-            
+
             <div className="mt-20 p-6 bg-[#00daf7]/10 border border-[#00daf7]/20">
-               <div className="font-mono text-[9px] text-[#00daf7] tracking-[0.3em] uppercase mb-4 opacity-70">
-                 METADATA_STREAM
-               </div>
-               <div className="space-y-2 font-mono text-[10px] text-gray-500">
-                  <div className="flex justify-between">
-                     <span>SECURITY_STATUS</span>
-                     <span className="text-[#00daf7]">ENCRYPTED</span>
-                  </div>
-                  <div className="flex justify-between">
-                     <span>DEPLOYMENT_DATE</span>
-                     <span className="text-white">
-                       {new Date(project.createdAt).toLocaleDateString()}
-                     </span>
-                  </div>
-               </div>
+              <div className="font-mono text-[9px] text-[#00daf7] tracking-[0.3em] uppercase mb-4 opacity-70">
+                METADATA_STREAM
+              </div>
+              <div className="space-y-2 font-mono text-[10px] text-gray-500">
+                <div className="flex justify-between">
+                  <span>SECURITY_STATUS</span>
+                  <span className="text-[#00daf7]">ENCRYPTED</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>DEPLOYMENT_DATE</span>
+                  <span className="text-white">
+                    {new Date(project.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

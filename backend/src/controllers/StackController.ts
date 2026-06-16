@@ -38,22 +38,45 @@ export const createStack = async (
     featured,
     order,
   } = req.body;
+  const imageUrl = await Stack.findById(req.params.id);
+    if (!title || !description) {
+      res
+      .status(400)
+      .json({ success: false, message: "Title dan description wajib diisi" });
+      return;
+    }
+    const stack = await Stack.create({
+      title,
+      description,
+      technologies: technologies ? JSON.parse(technologies) : [],
+      demoLink: demoLink || "",
+      githubLink: githubLink || "",
+      featured: featured === "true",
+      order: Number(order) || 0,
+      imageUrl,
+    });
+  res.status(201).json({ success: true, data: stack });
+};
+
+export const updateStack = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const {
+    title,
+    description,
+    technologies,
+    demoLink,
+    githubLink,
+    featured,
+    order,
+  } = req.body;
   const stack = await Stack.findById(req.params.id);
+  
 
   if (!stack) {
     res.status(404).json({ success: false, message: "Stack not found" });
     return;
-  }
-
-  if (req.file) {
-    const oldPath = stack.imageUrl
-      ? path.resolve(process.cwd(), `public${stack.imageUrl}`)
-      : null;
-    if (oldPath && fs.existsSync(oldPath)) {
-      fs.unlinkSync(oldPath);
-    }
-
-    stack.imageUrl = `/uploads/${req.file.filename}`;
   }
 
   stack.title = title || stack.title;
@@ -61,11 +84,12 @@ export const createStack = async (
   stack.technologies = technologies
     ? JSON.parse(technologies)
     : stack.technologies;
-  stack.demoLink = demoLink !== undefined ? demoLink : stack.demoLink;
-  stack.githubLink = githubLink !== undefined ? githubLink : stack.githubLink;
-  stack.featured =
-    featured !== undefined ? featured === "true" : stack.featured;
-  stack.order = order !== undefined ? Number(order) : stack.order;
+stack.demoLink = demoLink !== undefined ? demoLink : stack.demoLink;
+stack.githubLink =
+  githubLink !== undefined ? githubLink : stack.githubLink;
+stack.featured =
+  featured !== undefined ? featured === "true" : stack.featured;
+stack.order = order !== undefined ? Number(order) : stack.order;
 
   await stack.save();
   res.json({ success: true, data: stack });
