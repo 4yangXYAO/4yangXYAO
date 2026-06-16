@@ -1,4 +1,4 @@
-export interface Project {
+export interface Stack {
   _id: string;
   title: string;
   slug: string;
@@ -14,13 +14,13 @@ export interface Project {
   image: File;
 }
 
-export interface CreateProjectInput {
+export interface CreateStackInput {
   title: string;
   description: string;
   technologies: string[];
   demoLink?: string;
   githubLink?: string;
-  featured?: boolean;
-  order?: number;
+  featured: boolean;
+  order: number;
   image?: File;
 }
