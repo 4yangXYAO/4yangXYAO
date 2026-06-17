@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "4yangXYAO-portfolio",
   "builds": [
     {
       "src": "backend/src/server.ts",
@@ -9,9 +8,7 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "config": { "distDir": "dist" }
     }
   ],
   "rewrites": [
@@ -21,7 +18,9 @@
     },
     {
       "source": "/(.*)",
-      "destination": "frontend/$1"
+      "destination": "/frontend/index.html"
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
