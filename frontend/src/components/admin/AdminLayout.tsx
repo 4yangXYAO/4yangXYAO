@@ -10,6 +10,7 @@ interface AdminLayoutProps {
 const adminLinks = [
   { to: "/admin/dashboard", label: "Dashboard", icon: "📊" },
   { to: "/admin/projects", label: "Projects", icon: "📁" },
+  { to: "/admin/stack", label: "Stack", icon: "🛠️" },
   { to: "/admin/profile", label: "Profile", icon: "👤" },
   { to: "/admin/messages", label: "Messages", icon: "✉️" },
 ];

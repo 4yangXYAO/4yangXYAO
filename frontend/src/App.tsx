@@ -14,6 +14,7 @@ import { ContactPage } from "./pages/ContactPage";
 import { LoginPage } from "./pages/admin/LoginPage";
 import { DashboardPage } from "./pages/admin/DashboardPage";
 import { ManageProjectsPage } from "./pages/admin/ManageProjectsPage";
+import { ManageStack } from "./pages/admin/ManageStack";
 import { EditProfilePage } from "./pages/admin/EditProfilePage";
 import { ManageMessagesPage } from "./pages/admin/ManageMessagesPage";
 
@@ -44,6 +45,7 @@ function App() {
                     <Route index element={<Navigate to="dashboard" replace />} />
                     <Route path="dashboard" element={<DashboardPage />} />
                     <Route path="projects" element={<ManageProjectsPage />} />
+                    <Route path="stack" element={<ManageStack />} />
                     <Route path="profile" element={<EditProfilePage />} />
                     <Route path="messages" element={<ManageMessagesPage />} />
                     <Route path="*" element={<Navigate to="dashboard" replace />} />

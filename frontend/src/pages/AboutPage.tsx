@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { profileService } from "../services/profileService";
+import { StackService } from "../services/StackService";
 import { PageLoader } from "../components/common/PageLoader";
 import { getImageUrl } from "../utils/constants";
 
@@ -9,6 +10,11 @@ export const AboutPage = () => {
   const { data: apiProfile, isLoading } = useQuery({
     queryKey: ["profile"],
     queryFn: () => profileService.get(),
+  });
+
+  const { data: stacks, isLoading: stacksLoading } = useQuery({
+    queryKey: ["stacks"],
+    queryFn: () => StackService.getAll(),
   });
 
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -25,9 +31,52 @@ export const AboutPage = () => {
 
   const profile = apiProfile || defaultProfile;
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading || stacksLoading) return <PageLoader />;
 
   const avatarUrl = getImageUrl(profile.avatar);
+
+  const displayCategories = stacks && stacks.length > 0 ? [
+    {
+      category: "MY_TOOLS",
+      skills: stacks.map(s => s.title)
+    }
+  ] : [
+    {
+      category: "CORE",
+      skills: [
+        "JAVASCRIPT",
+        "TYPESCRIPT",
+        "REACT",
+        "NEXT.JS",
+        "TAILWIND",
+        "HTML/CSS",
+        "REDUX",
+        "FRAMER MOTION",
+        "PYTHON",
+        "C++",
+        "C",
+      ],
+    },
+    {
+      category: "AI_MODELS",
+      skills: ["GPT", "GEMINI", "GROK", "CLAUDE", "KIMI", "DEEPSEEK", "LLAMA"],
+    },
+    {
+      category: "AI_AGENT",
+      skills: [
+        "AUTOGEN",
+        "CLAUDE_CODE",
+        "LANGGRAPH",
+        "OPENAI_AGENT",
+        "OPENCODE",
+        "HERMES",
+      ],
+    },
+    {
+      category: "ECOSYSTEM",
+      skills: ["GIT", "DOCKER", "MONGODB", "NODE.JS", "EXPRESS"],
+    },
+  ];
 
   const careerTimeline = [
     {
@@ -115,46 +164,6 @@ export const AboutPage = () => {
       description:
         "Managed book lending records and maintained the library ecosystem.",
       tags: ["ADMIN", "ARCHIVE"],
-    },
-  ];
-
-  // Helper to categorize skills from profile
-  // Helper to categorize skills
-  const displayCategories = [
-    {
-      category: "CORE",
-      skills: [
-        "JAVASCRIPT",
-        "TYPESCRIPT",
-        "REACT",
-        "NEXT.JS",
-        "TAILWIND",
-        "HTML/CSS",
-        "REDUX",
-        "FRAMER MOTION",
-        "PYTHON",
-        "C++",
-        "C",
-      ],
-    },
-    {
-      category: "AI_MODELS",
-      skills: ["GPT", "GEMINI", "GROK", "CLAUDE", "KIMI", "DEEPSEEK", "LLAMA"],
-    },
-    {
-      category: "AI_AGENT",
-      skills: [
-        "AUTOGEN",
-        "CLAUDE_CODE",
-        "LANGGRAPH",
-        "OPENAI_AGENT",
-        "OPENCODE",
-        "HERMES",
-      ],
-    },
-    {
-      category: "ECOSYSTEM",
-      skills: ["GIT", "DOCKER", "MONGODB", "NODE.JS", "EXPRESS"],
     },
   ];
 

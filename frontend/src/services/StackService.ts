@@ -1,9 +1,9 @@
 import api from "./api";
-import { CreateProjectInput, Project } from "../types/project";
-
-export const stackService = {
+import type { Stack,CreateStackInput } from "../types/stack";
+  
+export const StackService = {
   getAll: async (featured?: boolean) => {
-    const { data } = await api.get<{ success: boolean; data: Project[] }>( 
+    const { data } = await api.get<{ success: boolean; data: Stack[] }>( 
         "/stacks",
         {
           params: featured ? { featured: true } : undefined,
@@ -11,14 +11,15 @@ export const stackService = {
       );
     return data.data;
   },
+  
   getBySlug: async (slug: string) => {
-    const { data } = await api.get<{ success: boolean; data: Project }>(
+    const { data } = await api.get<{ success: boolean; data: Stack }>(
       `/stacks/${slug}`,
     );
     return data.data;
   },
 
-  create: async (input: CreateProjectInput) => {
+  create: async (input: CreateStackInput) => {
     const formData = new FormData();
     formData.append("title", input.title);
     formData.append("description", input.description);
@@ -29,7 +30,7 @@ export const stackService = {
     formData.append("order", String(input.order || 0));
     if (input.image) formData.append("image", input.image);
 
-    const { data } = await api.post<{ success: boolean; data: Project }>(
+    const { data } = await api.post<{ success: boolean; data: Stack }>(
       "/stacks",
       formData,
       {
@@ -39,7 +40,7 @@ export const stackService = {
     return data.data;
   },
 
-  update:async (id: string, input: Partial<CreateProjectInput>) => {
+  update:async (id: string, input: Partial<CreateStackInput>) => {
     const formData = new FormData();
     if (input.title) formData.append("title", input.title);
     if (input.description) formData.append("description", input.description);
@@ -56,7 +57,7 @@ export const stackService = {
         formData.append("order", String(input.order));
     if (input.image) formData.append("image", input.image);
 
-    const { data } = await api.put<{ success: boolean; data: Project }>(
+    const { data } = await api.put<{ success: boolean; data: Stack  }>(
       `/stacks/${id}`,
       formData,
       {

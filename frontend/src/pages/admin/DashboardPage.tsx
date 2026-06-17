@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { projectService } from "../../services/projectService";
+import { StackService } from "../../services/StackService";
 import { messageService } from "../../services/messageService";
 import { PageLoader } from "../../components/common/PageLoader";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,12 +14,17 @@ export const DashboardPage = () => {
     queryFn: () => projectService.getAll(),
   });
 
+  const { data: stacks, isLoading: stacksLoading } = useQuery({
+    queryKey: ["admin", "stacks"],
+    queryFn: () => StackService.getAll(),
+  });
+
   const { data: messages, isLoading: messagesLoading } = useQuery({
     queryKey: ["admin", "messages"],
     queryFn: () => messageService.getAll(),
   });
 
-  if (projectsLoading || messagesLoading) return <PageLoader />;
+  if (projectsLoading || messagesLoading || stacksLoading) return <PageLoader />;
 
   const stats = [
     {
@@ -113,6 +119,12 @@ export const DashboardPage = () => {
             className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 text-gray-700 font-bold hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
           >
             <span className="text-xl">👁️</span> Review Messages
+          </Link>
+          <Link
+            to="/admin/stack"
+            className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 text-gray-700 font-bold hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
+          >
+            <span className="text-xl">🛠️</span> Manage Stack
           </Link>
           <Link
             to="/"
