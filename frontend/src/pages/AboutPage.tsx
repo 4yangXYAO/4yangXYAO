@@ -35,48 +35,59 @@ export const AboutPage = () => {
 
   const avatarUrl = getImageUrl(profile.avatar);
 
-  const displayCategories = stacks && stacks.length > 0 ? [
-    {
-      category: "MY_TOOLS",
-      skills: stacks.map(s => s.title)
-    }
-  ] : [
-    {
-      category: "CORE",
-      skills: [
-        "JAVASCRIPT",
-        "TYPESCRIPT",
-        "REACT",
-        "NEXT.JS",
-        "TAILWIND",
-        "HTML/CSS",
-        "REDUX",
-        "FRAMER MOTION",
-        "PYTHON",
-        "C++",
-        "C",
-      ],
-    },
-    {
-      category: "AI_MODELS",
-      skills: ["GPT", "GEMINI", "GROK", "CLAUDE", "KIMI", "DEEPSEEK", "LLAMA"],
-    },
-    {
-      category: "AI_AGENT",
-      skills: [
-        "AUTOGEN",
-        "CLAUDE_CODE",
-        "LANGGRAPH",
-        "OPENAI_AGENT",
-        "OPENCODE",
-        "HERMES",
-      ],
-    },
-    {
-      category: "ECOSYSTEM",
-      skills: ["GIT", "DOCKER", "MONGODB", "NODE.JS", "EXPRESS"],
-    },
-  ];
+  const displayCategories =
+    stacks && stacks.length > 0
+      ? [
+        {
+          category: "MY_TOOLS",
+          skills: stacks.map((s) => s.title),
+        },
+      ]
+      : [
+        {
+          category: "CORE",
+          skills: [
+            "JAVASCRIPT",
+            "TYPESCRIPT",
+            "REACT",
+            "NEXT.JS",
+            "TAILWIND",
+            "HTML/CSS",
+            "REDUX",
+            "FRAMER MOTION",
+            "PYTHON",
+            "C++",
+            "C",
+          ],
+        },
+        {
+          category: "AI_MODELS",
+          skills: [
+            "GPT",
+            "GEMINI",
+            "GROK",
+            "CLAUDE",
+            "KIMI",
+            "DEEPSEEK",
+            "LLAMA",
+          ],
+        },
+        {
+          category: "AI_AGENT",
+          skills: [
+            "AUTOGEN",
+            "CLAUDE_CODE",
+            "LANGGRAPH",
+            "OPENAI_AGENT",
+            "OPENCODE",
+            "HERMES",
+          ],
+        },
+        {
+          category: "ECOSYSTEM",
+          skills: ["GIT", "DOCKER", "MONGODB", "NODE.JS", "EXPRESS"],
+        },
+      ];
 
   const careerTimeline = [
     {
@@ -194,7 +205,7 @@ export const AboutPage = () => {
               <div className="lg:col-span-4 flex justify-end">
                 <div className="relative p-1 border border-[#00daf7]/20">
                   <img
-                    src="/media/profile.webp"
+                    src="/media/profile/profile.webp"
                     alt="Kharis"
                     className="w-48 h-48 md:w-56 md:h-56 object-cover"
                     onError={(e) => {
