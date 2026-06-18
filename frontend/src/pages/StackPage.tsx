@@ -32,29 +32,18 @@ export const StackPage = () => {
       slug: "Website-OS",
       featured: true,
       order: 1,
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800",
+      image: "frontend/src/assets/images/stack/na_os_.webp",
     },
 
     {
       _id: "S02",
       title: "Blast_engine",
       description: "Sistem Kampanye dDi berbagai Platform",
-      technologies: [
-        "Node.js",
-        "SolidJS",
-        "TypeScript",
-        "Vite",
-        "Tailwind CSS",
-        "Fastify",
-        "Socket.IO",
-        "Lucide Solid",
-        "Zod",
-        "dan Vitest",
-      ],
+      technologies: [" Node.js", "TypeScript"],
       slug: "Website-OS",
       featured: true,
       order: 2,
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800",
+      image: "frontend/src/assets/images/stack/blast_engine.png",
     },
   ];
 
@@ -75,8 +64,7 @@ export const StackPage = () => {
             MISSION_LOG: <span className="text-gray-500">Stack</span>
           </h1>
           <p className="font-sans text-gray-400 max-w-2xl text-lg leading-relaxed">
-            Daftar portofolio yang merangkum berbagai jenis proyek teknis dan
-            eksperimen pengembangan sistem yang telah saya selesaikan.
+            some projects that I am currently developing.
           </p>
         </header>
 
