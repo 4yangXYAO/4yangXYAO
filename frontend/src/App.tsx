@@ -9,6 +9,8 @@ import { AdminLayout } from "./components/admin/AdminLayout";
 import { HomePage } from "./pages/HomePage";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { ProjectDetailPage } from "./pages/ProjectDetailPage";
+import { StackPage } from "./pages/StackPage";
+import { StackDetailPage } from "./pages/StackDetailPage";
 import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
 import { LoginPage } from "./pages/admin/LoginPage";
@@ -68,6 +70,11 @@ function App() {
                     <Route
                       path="/projects/:slug"
                       element={<ProjectDetailPage />}
+                    />
+                    <Route path="/stacks" element={<StackPage />} />
+                    <Route
+                      path="/stacks/:slug"
+                      element={<StackDetailPage />}
                     />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
