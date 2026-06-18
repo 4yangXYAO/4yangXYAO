@@ -100,7 +100,7 @@ export const HomePage = () => {
             <span className="material-symbols-outlined text-sm group-hover:translate-x-2 transition-transform">person</span>
           </Link>
           <Link to="/projects" className="px-12 py-4 bg-[#121212]/50 backdrop-blur-md text-white font-mono text-xs tracking-[0.3em] border border-white/10 hover:border-[#00daf7]/40 transition-all uppercase flex items-center gap-4">
-            <span>VIEW_ALL_WORK</span>
+            <span>My_CV</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </Link>
         </motion.div>
