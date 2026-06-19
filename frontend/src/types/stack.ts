@@ -11,7 +11,7 @@ export interface Stack {
   order: number;
   createdAt: string;
   updatedAt: string;
-  image: File;
+  image?: File;
 }
 
 export interface CreateStackInput {

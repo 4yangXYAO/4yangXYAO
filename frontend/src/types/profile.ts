@@ -14,6 +14,7 @@ export interface Profile {
     instagram?: string;
     whatsapp?: string;
     website?: string;
+    cv?: string;
   };
 }
 

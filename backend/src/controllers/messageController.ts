@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { Message } from "../models/Message";
+import { emailService } from "../utils/emailService";
 
 export const getMessages = async (
   _req: Request,
@@ -16,16 +17,20 @@ export const createMessage = async (
   const { name, email, message } = req.body;
 
   if (!name || !email || !message || message.length < 10) {
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Semua field wajib diisi, min 10 karakter",
-      });
+    res.status(400).json({
+      success: false,
+      message: "Semua field wajib diisi, min 10 karakter",
+    });
     return;
   }
 
   const newMessage = await Message.create({ name, email, message });
+
+  // Send email notification (asynchronously to not delay the response too much)
+  emailService.sendContactEmail({ name, email, message }).catch((err) => {
+    console.error("Failed to send contact email:", err);
+  });
+
   res.status(201).json({ success: true, data: newMessage });
 };
 

@@ -32,18 +32,22 @@ export const StackPage = () => {
       slug: "Website-OS",
       featured: true,
       order: 1,
-      image: "frontend/src/assets/images/stack/na_os_.webp",
+      imageUrl: "/media/stack/na_os_.webp",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
 
     {
       _id: "S02",
       title: "Blast_engine",
-      description: "Sistem Kampanye dDi berbagai Platform",
+      description: "Sistem Kampanye Di berbagai Platform",
       technologies: [" Node.js", "TypeScript"],
       slug: "Website-OS",
       featured: true,
       order: 2,
-      image: "frontend/src/assets/images/stack/blast_engine.png",
+      imageUrl: "/media/stack/blast_engine.png",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
   ];
 

@@ -15,6 +15,10 @@ export const Footer = () => {
     { name: "LINKEDIN", url: profile?.socialLinks?.linkedin || "#", isExternal: true },
   ];
 
+  if (profile?.socialLinks?.cv) {
+    socialLinks.push({ name: "CV", url: profile.socialLinks.cv, isExternal: true });
+  }
+
   return (
     <footer className="w-full py-12 md:py-20 bg-[#0a0a0a] border-t-2 border-white/5 relative overflow-hidden">
       {/* Background Decorative Grid segment */}

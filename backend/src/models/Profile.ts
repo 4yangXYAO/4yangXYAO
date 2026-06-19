@@ -16,6 +16,7 @@ const profileSchema = new Schema(
       instagram: { type: String, default: "" },
       whatsapp: { type: String, default: "" },
       website: { type: String, default: "" },
+      cv: { type: String, default: "" },
     },
   },
   { timestamps: true },

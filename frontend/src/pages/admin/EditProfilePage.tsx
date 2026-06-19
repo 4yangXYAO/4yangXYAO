@@ -22,6 +22,7 @@ const profileSchema = z.object({
     linkedin: z.string().optional(),
     twitter: z.string().optional(),
     website: z.string().optional(),
+    cv: z.string().optional(),
   }),
 });
 
@@ -58,6 +59,7 @@ export const EditProfilePage = () => {
           linkedin: _profile.socialLinks?.linkedin || "",
           twitter: _profile.socialLinks?.twitter || "",
           website: _profile.socialLinks?.website || "",
+          cv: _profile.socialLinks?.cv || "",
         },
       });
       if (_profile.avatar) {
@@ -253,6 +255,15 @@ export const EditProfilePage = () => {
                     {...register("socialLinks.website")}
                     type="text"
                     placeholder="https://yourwebsite.com"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">CV URL</label>
+                  <input
+                    {...register("socialLinks.cv")}
+                    type="text"
+                    placeholder="https://drive.google.com/..."
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
                   />
                 </div>

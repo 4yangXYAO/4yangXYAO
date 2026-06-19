@@ -7,6 +7,6 @@ export const BACKEND_URL = API_BASE_URL.replace("/api/v1", "");
 // Helper to get full image URL from backend path
 export const getImageUrl = (path?: string): string => {
   if (!path) return "";
-  if (path.startsWith("http")) return path;
+  if (path.startsWith("http") || path.startsWith("/media")) return path;
   return `${BACKEND_URL}${path}`;
 };
