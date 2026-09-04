@@ -29,7 +29,9 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: 1,
+      // API is down until Fase 0 (DB) is wired; fail fast so static fallback renders
+      // immediately instead of stalling on retries.
+      retry: false,
     },
   },
 });
