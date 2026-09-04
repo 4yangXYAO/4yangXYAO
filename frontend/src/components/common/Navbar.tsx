@@ -8,6 +8,7 @@ export const Navbar = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
@@ -20,6 +21,25 @@ export const Navbar = () => {
     setIsOpen(false);
   }, [location.pathname]);
 
+  // Scroll progress bar — rAF-throttled.
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      const max = document.body.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? window.scrollY / max : 0);
+      raf = 0;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   const navLinks = [
     { path: "/projects", labelKey: "nav.projects" },
     { path: "/about", labelKey: "nav.about" },
@@ -29,11 +49,19 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 h-16 transition-colors duration-300 ${isScrolled
+      className={`fixed top-0 left-0 w-full z-50 h-16 transition-colors duration-300 ${
+        isScrolled
           ? "bg-ink/85 backdrop-blur-md border-b border-ink-line"
           : "bg-transparent border-b border-transparent"
-        }`}
+      }`}
     >
+      {/* Scroll progress bar */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 h-[2px] w-full origin-left bg-amber"
+        style={{ transform: `scaleX(${scrollProgress})` }}
+      />
+
       <div className="container-x h-full flex items-center justify-between gap-4">
         {/* Wordmark */}
         <Link
@@ -55,8 +83,16 @@ export const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 aria-current={active ? "page" : undefined}
-                className="link-line text-sm text-paper-dim hover:text-paper transition-colors"
+                className={`link-line flex items-center gap-2 text-sm transition-colors ${
+                  active ? "text-paper" : "text-paper-dim hover:text-paper"
+                }`}
               >
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="h-1 w-1 rounded-full bg-amber"
+                  />
+                )}
                 {t(link.labelKey)}
               </Link>
             );
@@ -88,14 +124,17 @@ export const Navbar = () => {
 
       {/* Mobile drawer — CSS transition, no framer-motion */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full origin-top bg-ink-soft border-b border-ink-line transition-all duration-200 ease-out ${isOpen
+        className={`md:hidden absolute top-full left-0 w-full origin-top border-b border-ink-line bg-ink-card transition-all duration-200 ease-out ${
+          isOpen
             ? "visible translate-y-0 opacity-100"
             : "invisible -translate-y-3 opacity-0"
-          }`}
+        }`}
       >
         <nav className="flex flex-col container-x py-2">
           {navLinks.map((link, i) => {
-            const active = location.pathname === link.path;
+            const active =
+              location.pathname === link.path ||
+              location.pathname.startsWith(link.path + "/");
             return (
               <Link
                 key={link.path}
@@ -103,11 +142,22 @@ export const Navbar = () => {
                 aria-current={active ? "page" : undefined}
                 onClick={() => setIsOpen(false)}
                 style={{ transitionDelay: isOpen ? `${i * 40}ms` : "0ms" }}
-                className={`link-line block py-4 text-lg transition-all duration-200 ${isOpen
+                className={`link-line flex items-center gap-2 py-4 text-lg transition-all duration-200 ${
+                  isOpen
                     ? "translate-y-0 opacity-100"
                     : "translate-y-2 opacity-0"
-                  } ${active ? "text-paper" : "text-paper-dim hover:text-paper"}`}
+                } ${
+                  active
+                    ? "text-paper"
+                    : "text-paper-dim hover:text-paper"
+                }`}
               >
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="h-1 w-1 rounded-full bg-amber"
+                  />
+                )}
                 {t(link.labelKey)}
               </Link>
             );

@@ -21,13 +21,16 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { t, i18n } = useTranslation();
+  const lang: "en" | "id" | "zh" = i18n.language.startsWith("zh")
+    ? "zh"
+    : i18n.language.startsWith("id")
+      ? "id"
+      : "en";
 
   const description =
     typeof project.description === "string"
       ? project.description
-      : project.description[i18n.language as "en" | "id" | "zh"] ??
-        project.description.en;
-
+      : project.description[lang] ?? project.description.en;
   const technologies = Array.isArray(project.technologies)
     ? project.technologies
     : project.technologies
@@ -40,52 +43,43 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="card card-hover overflow-hidden group h-full flex flex-col"
+      className="card card-hover overflow-hidden group flex h-full flex-col"
     >
-      <div className="aspect-[5/3] w-full overflow-hidden relative">
+      <div className="relative aspect-[8/5] overflow-hidden">
         {cover ? (
           <img
             src={getImageUrl(cover)}
             alt={project.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="h-full w-full object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.04]"
           />
         ) : (
           <ProjectCover
-            seed={project.slug}
-            label={project.title}
-            className="h-full w-full transition-transform duration-700 group-hover:scale-[1.03]"
+            slug={project.slug}
+            title={project.title}
+            className="h-full w-full transition-transform duration-500 ease-smooth group-hover:scale-[1.04]"
           />
         )}
 
         {project.featured && (
-          <span className="absolute top-3 left-3 bg-ink/80 backdrop-blur border border-amber/30 text-amber font-mono text-[10px] uppercase tracking-wider rounded-full px-2.5 py-1">
+          <span className="absolute top-3 left-3 rounded-full bg-ink-deep/80 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-amber">
             {t("projects.featuredBadge")}
           </span>
         )}
+
+        <span className="absolute right-3 bottom-3 flex h-10 w-10 items-center justify-center rounded-full border border-ink-line bg-ink/60 text-paper-faint backdrop-blur transition-all duration-300 ease-smooth group-hover:border-amber group-hover:bg-amber group-hover:text-ink">
+          <Icon name="arrow-up-right" size={18} />
+        </span>
       </div>
 
-      <div className="p-5 flex-1 flex flex-col">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-display text-paper">{project.title}</h3>
-          <Icon
-            name="arrow-up-right"
-            size={18}
-            className="text-paper-faint transition-all group-hover:text-amber group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1"
-          />
-        </div>
-
-        <p className="mt-2 text-sm text-paper-dim line-clamp-3">
-          {description}
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-display text-xl font-bold text-paper transition-colors duration-300 group-hover:text-amber">
+          {project.title}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm text-paper-dim">{description}</p>
+        <p className="mt-auto pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-paper-faint">
+          {technologies.join(" · ")}
         </p>
-
-        <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
-          {technologies.map((tech) => (
-            <span key={tech} className="font-mono text-[11px] text-paper-faint">
-              {tech}
-            </span>
-          ))}
-        </div>
       </div>
     </Link>
   );

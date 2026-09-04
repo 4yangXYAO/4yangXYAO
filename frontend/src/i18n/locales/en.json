@@ -29,11 +29,24 @@
     "status": "Open for collaboration",
     "greeting": "Hi, I'm",
     "name": "Kharis Jalaludin",
-    "tagline": "Network engineer by day, web developer by night. I build things that run quietly and stay fixed.",
+    "role": "IT & network engineer — frontend & AI on the side",
+    "location": "Bandung, Indonesia",
+    "tagline": "I keep networks up and interfaces sharp.",
+    "taglineAccent": "quietly",
+    "taglineFull": "I keep networks up and interfaces sharp — and everything runs better when it stays",
     "motto": "No complain, never explain.",
     "mottoBy": "executed by",
     "ctaWork": "See my work",
     "ctaContact": "Get in touch",
+    "localTime": "Local time",
+    "stats": {
+      "years": "6+",
+      "yearsLabel": "years on the wire",
+      "projects": "20",
+      "projectsLabel": "things shipped",
+      "uptime": "99.9%",
+      "uptimeLabel": "homelab uptime"
+    },
     "skillsLabel": "What I do",
     "skillsTitle": "Three hats, one workshop",
     "skills": {
@@ -56,7 +69,15 @@
     "marquee": "Network engineering · Web development · AI automation · Homelab · Linux · TypeScript · Mikrotik · React",
     "workLabel": "Selected work",
     "workTitle": "Things I've built",
-    "workBody": "Internal tools, client work, and experiments that stuck around. A few from the archive."
+    "workBody": "Internal tools, client work, and experiments that stuck around. A few from the archive.",
+    "workIndex": "Index",
+    "workYear": "Year",
+    "ctaBand": {
+      "eyebrow": "Next project",
+      "title": "Need someone who actually reads the logs?",
+      "body": "Tell me what's breaking — or what you want to build. I usually reply within a day.",
+      "button": "Start a conversation"
+    }
   },
   "projects": {
     "title": "Projects",
@@ -69,7 +90,10 @@
     "moreProjects": "More projects",
     "allProjects": "All projects",
     "visit": "Visit site",
-    "source": "Source code"
+    "source": "Source code",
+    "count": "{{count}} projects",
+    "filterFeatured": "Featured only",
+    "backToAll": "Back to all projects"
   },
   "about": {
     "label": "About",
@@ -77,6 +101,7 @@
     "lead": "I'm Kharis — an IT and network engineer in Indonesia who fell in love with the web somewhere between the third rack mount and the first production incident.",
     "p1": "By trade I keep networks alive: cabling, configuration, monitoring, and the occasional 2 a.m. phone call from someone whose printer is 'suddenly broken' (it's never the printer). By hobby — which became a second job — I build software: dashboards, storefronts, bots, and the odd AI sidekick.",
     "p2": "I like systems that are quiet on the outside and well-organized on the inside. Cable ties in the rack, clean commits in the repo. Most of what I've learned came from breaking things at home first, so they don't break at work.",
+    "pullQuote": "Cable ties in the rack. Clean commits in the repo.",
     "valuesTitle": "How I work",
     "values": {
       "boring": {
@@ -90,6 +115,40 @@
       "curious": {
         "title": "Stay curious",
         "body": "New tool, new protocol, new model — I'd rather test it on my homelab than read about it."
+      }
+    },
+    "timelineTitle": "How I got here",
+    "timeline": {
+      "2017": {
+        "title": "First rack",
+        "body": "Started in IT support — printers, patch panels, and learning that 90% of problems are layer 8."
+      },
+      "2019": {
+        "title": "Network engineering",
+        "body": "Moved into full-time network work: Cisco, Mikrotik, monitoring stacks, and on-call rotations."
+      },
+      "2022": {
+        "title": "Went frontend",
+        "body": "React, TypeScript, and a homelab dashboard that got out of hand. The web became a second craft."
+      },
+      "2024": {
+        "title": "AI in the loop",
+        "body": "Wired LLMs and agents into real workflows — content pipelines, assistants, automation that ships."
+      }
+    },
+    "currentlyTitle": "Currently",
+    "currently": {
+      "learning": {
+        "label": "Learning",
+        "value": "eBPF & network observability"
+      },
+      "reading": {
+        "label": "Reading",
+        "value": "RFCs, honestly"
+      },
+      "building": {
+        "label": "Building",
+        "value": "This site, again"
       }
     },
     "facts": {
@@ -108,12 +167,27 @@
     "empty": "No stack entries yet.",
     "items": "items",
     "demo": "Live demo",
-    "source": "Source"
+    "source": "Source",
+    "experimentsLabel": "Experiments & toys",
+    "experimentsTitle": "Things that broke so production doesn't have to",
+    "depth": "Depth of daily use",
+    "categories": {
+      "network": "Network & infrastructure",
+      "web": "Web & frontend",
+      "data": "Data, AI & automation"
+    }
   },
   "contact": {
     "label": "Contact",
     "title": "Let's talk shop",
     "subtitle": "Got a project, a problem, or just want to argue about Mikrotik vs Cisco? My inbox is open.",
+    "formTitle": "Send a message",
+    "formNote": "All fields required. No newsletters, I promise.",
+    "availability": {
+      "title": "Right now",
+      "status": "Open for collaboration",
+      "response": "Usually replies within a day"
+    },
     "form": {
       "name": "Your name",
       "namePlaceholder": "Jane Doe",
@@ -142,6 +216,10 @@
     "tagline": "Network & web engineer, building quietly from Indonesia.",
     "credits": "With Alya, Jester, Rena, and ❤️",
     "rights": "All rights reserved.",
-    "status": "All systems nominal"
+    "status": "All systems nominal",
+    "sitemap": "Sitemap",
+    "elsewhere": "Elsewhere",
+    "backToTop": "Back to top",
+    "localTime": "Bandung"
   }
 }

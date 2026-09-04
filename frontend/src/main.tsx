@@ -5,6 +5,8 @@ import ReactDOM from "react-dom/client";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono/wght.css";
+import "@fontsource/instrument-serif/index.css";
+import "@fontsource/instrument-serif/400-italic.css";
 
 import "./i18n";
 import App from "./App";

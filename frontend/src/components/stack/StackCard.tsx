@@ -1,52 +1,56 @@
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import type { Stack } from "../../types/stack";
 import { Icon } from "../common/Icon";
-
-const iconFor = (title: string): string => {
-  const s = title.toLowerCase();
-  if (s.includes("os") || s.includes("system")) return "layers";
-  if (s.includes("data") || s.includes("base")) return "database";
-  if (s.includes("server") || s.includes("api") || s.includes("engine"))
-    return "server";
-  if (s.includes("net") || s.includes("wifi") || s.includes("blast")) return "wifi";
-  if (s.includes("monitor") || s.includes("dashboard")) return "monitor";
-  if (s.includes("cpu") || s.includes("chip")) return "cpu";
-  if (s.includes("cloud")) return "cloud";
-  if (s.includes("shield") || s.includes("security")) return "shield";
-  if (s.includes("code") || s.includes("web") || s.includes("app")) return "code";
-  if (s.includes("terminal") || s.includes("cli")) return "terminal";
-  return "zap";
-};
+import { ProjectCover } from "../common/ProjectCover";
+import { getImageUrl } from "../../utils/constants";
 
 interface StackCardProps {
   stack: Stack;
 }
 
 export const StackCard: React.FC<StackCardProps> = ({ stack }) => {
-  const { t } = useTranslation();
-
   return (
-    <Link to={`/stacks/${stack.slug}`} className="group block">
-      <div className="card card-hover p-6">
-        <div className="flex items-start justify-between">
-          <div className="grid h-10 w-10 place-items-center rounded-full bg-amber-soft text-amber">
-            <Icon name={iconFor(stack.title)} size={20} />
-          </div>
+    <Link
+      to={`/stacks/${stack.slug}`}
+      className="card card-hover overflow-hidden group h-full flex flex-col"
+    >
+      <div className="aspect-[5/3] w-full overflow-hidden relative">
+        {stack.imageUrl ? (
+          <img
+            src={getImageUrl(stack.imageUrl)}
+            alt={stack.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 ease-smooth group-hover:scale-[1.03]"
+          />
+        ) : (
+          <ProjectCover
+            slug={stack.slug}
+            title={stack.title}
+            className="h-full w-full transition-transform duration-700 ease-smooth group-hover:scale-[1.03]"
+          />
+        )}
+      </div>
+
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-lg font-display text-paper transition-colors duration-300 group-hover:text-amber">
+            {stack.title}
+          </h3>
           <Icon
             name="arrow-up-right"
             size={18}
-            className="text-paper-faint transition-colors group-hover:text-amber"
+            className="mt-1 shrink-0 text-paper-faint transition-all duration-300 group-hover:text-amber group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           />
         </div>
 
-        <h3 className="mt-4 font-display text-lg text-paper">{stack.title}</h3>
-        <p className="mt-2 line-clamp-2 text-sm text-paper-dim">
+        <p className="mt-2 text-sm text-paper-dim line-clamp-3">
           {stack.description}
         </p>
 
-        <div className="mt-4 font-mono text-[11px] text-paper-faint">
-          {stack.technologies.length} {t("common.technologies")}
+        <div className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-paper-faint">
+          {stack.technologies.map((tech) => (
+            <span key={tech}>{tech.trim()}</span>
+          ))}
         </div>
       </div>
     </Link>

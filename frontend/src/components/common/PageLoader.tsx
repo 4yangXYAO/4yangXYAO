@@ -22,14 +22,14 @@ export const RouteFallback = () => <PageLoader />;
 /* Skeleton components for loading states */
 export const SkeletonCard: React.FC = () => (
   <div className="card overflow-hidden">
-    <div className="aspect-[5/3] w-full animate-pulse bg-ink-soft" />
+    <div className="aspect-[5/3] w-full animate-pulse bg-ink-line" />
     <div className="space-y-3 p-5">
-      <div className="h-5 w-3/4 animate-pulse rounded bg-ink-soft" />
-      <div className="h-4 w-full animate-pulse rounded bg-ink-soft" />
-      <div className="h-4 w-2/3 animate-pulse rounded bg-ink-soft" />
+      <div className="h-5 w-3/4 animate-pulse rounded bg-ink-line" />
+      <div className="h-4 w-full animate-pulse rounded bg-ink-line" />
+      <div className="h-4 w-2/3 animate-pulse rounded bg-ink-line" />
       <div className="mt-4 flex gap-2">
-        <div className="h-6 w-16 animate-pulse rounded-full bg-ink-soft" />
-        <div className="h-6 w-16 animate-pulse rounded-full bg-ink-soft" />
+        <div className="h-6 w-16 animate-pulse rounded-full bg-ink-line" />
+        <div className="h-6 w-16 animate-pulse rounded-full bg-ink-line" />
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@ export const SkeletonText: React.FC<{ lines?: number }> = ({ lines = 3 }) => (
     {Array.from({ length: lines }).map((_, i) => (
       <div
         key={i}
-        className={`h-4 animate-pulse rounded bg-ink-soft ${i === lines - 1 ? "w-2/3" : "w-full"}`}
+        className={`h-4 animate-pulse rounded bg-ink-line ${i === lines - 1 ? "w-2/3" : "w-full"}`}
       />
     ))}
   </div>

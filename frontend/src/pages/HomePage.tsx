@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { projectService } from "../services/projectService";
 import { profileService } from "../services/profileService";
-import { ProjectCard } from "../components/projects/ProjectCard";
 import { SkeletonCard } from "../components/common/PageLoader";
 import { Reveal } from "../components/common/Reveal";
 import { Icon } from "../components/common/Icon";
 import { SectionHeading } from "../components/common/SectionHeading";
+import { ProjectCover } from "../components/common/ProjectCover";
+import { LocalClock } from "../components/common/LocalClock";
 import { FALLBACK_PROJECTS } from "../data/projects";
 
-// Contract-shaped project consumed by ProjectCard (API + fallback).
+// Contract-shaped project consumed by the work index (API + fallback).
 type FeaturedProject = {
   _id: string;
   title: string;
@@ -27,6 +28,16 @@ const SKILLS = [
   { key: "ai", icon: "sparkles" },
 ] as const;
 
+const CONSOLE_LINES = [
+  "$ traceroute 4yang-xyao.site",
+  " 1  homelab.local        0.42 ms",
+  " 2  idn-edge.telkom.net  8.1 ms",
+  " 3  sin-core.vercel.net  14 ms",
+  " 4  www.4yang-xyao.site  42 ms  [200 OK]",
+  "$ uptime -p",
+  " up 24/7, humans notified: 0",
+];
+
 const renderName = (name: string) => {
   const words = name.trim().split(/\s+/);
   if (words.length < 2) return name;
@@ -39,7 +50,7 @@ const renderName = (name: string) => {
 };
 
 export const HomePage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data: profile } = useQuery({
     queryKey: ["profile"],
@@ -72,83 +83,112 @@ export const HomePage = () => {
     .filter(Boolean);
 
   const displayName = profile?.name ?? t("home.name");
+  const lang = i18n.language?.startsWith("zh") ? "zh" : i18n.language?.startsWith("id") ? "id" : "en";
+
+  const descOf = (p: FeaturedProject) =>
+    typeof p.description === "string" ? p.description : p.description[lang];
 
   return (
     <div>
-      {/* HERO */}
-      <section className="min-h-[92vh] flex items-center pt-28 pb-20">
-        <div className="container-x">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
-            <div className="max-w-4xl">
-              <Reveal delay={0}>
-                <span className="inline-flex items-center gap-2 rounded-full border border-ink-line px-3 py-1 font-mono text-[11px] text-paper-dim">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber animate-blink" />
-                  {t("home.status")}
-                </span>
-              </Reveal>
+      {/* ============ HERO ============ */}
+      <section className="relative overflow-hidden">
+        <div aria-hidden="true" className="absolute inset-0 grid-lines" />
+        <div aria-hidden="true" className="glow-amber -right-48 -top-48 h-[44rem] w-[44rem]" />
+        <div aria-hidden="true" className="glow-amber -left-40 top-1/2 h-[32rem] w-[32rem] opacity-60" />
 
-              <Reveal delay={80}>
-                <p className="mt-8 text-paper-dim">{t("home.greeting")}</p>
-              </Reveal>
+        <div className="container-x relative flex min-h-[100svh] flex-col justify-between pb-10 pt-28 sm:pt-32">
+          {/* meta strip */}
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-ink-line pb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-paper-faint sm:text-[11px]">
+            <span>
+              {t("home.location")} — <LocalClock />
+            </span>
+            <span className="flex items-center gap-2">
+              <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse-ring rounded-full bg-signal" />
+              {t("home.status")}
+            </span>
+          </div>
 
-              <Reveal delay={160}>
-                <h1 className="mt-2 font-display text-display-xl leading-none text-paper">
-                  {renderName(displayName)}
-                </h1>
-              </Reveal>
+          {/* main composition */}
+          <div className="grid flex-1 items-center gap-14 py-14 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-7">
+              <div className="eyebrow mb-6">{t("home.greeting")} — {t("home.role")}</div>
+              <h1 className="text-display-2xl font-extrabold text-paper">
+                {renderName(displayName)}
+                <span className="text-amber">.</span>
+              </h1>
+              <p className="mt-6 max-w-xl font-serif text-[clamp(1.5rem,3vw,2.25rem)] italic leading-snug text-paper-dim">
+                {t("home.tagline")}
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <a href="#work" className="btn-primary">
+                  {t("home.ctaWork")}
+                  <Icon name="arrow-right" size={16} />
+                </a>
+                <Link to="/contact" className="btn-ghost">
+                  {t("home.ctaContact")}
+                </Link>
+              </div>
+            </div>
 
-              <Reveal delay={240}>
-                <p className="mt-6 text-lead text-paper-dim max-w-xl">
-                  {t("home.tagline")}
-                </p>
+            {/* portrait + console */}
+            <div className="relative mx-auto w-full max-w-sm lg:col-span-5">
+              <Reveal variant="scale" className="crop rotate-1 transition-transform duration-500 ease-smooth hover:rotate-0">
+                <div className="overflow-hidden rounded-lg border border-ink-line bg-ink-card">
+                  <img
+                    src="/media/profile/profile.webp"
+                    alt={displayName}
+                    width={480}
+                    height={600}
+                    className="aspect-[4/5] w-full object-cover"
+                    loading="eager"
+                  />
+                </div>
               </Reveal>
-
-              <Reveal delay={320}>
-                <div className="mt-10 flex flex-wrap items-center gap-4">
-                  <Link to="/projects" className="btn-primary group">
-                    {t("home.ctaWork")}
-                    <Icon
-                      name="arrow-right"
-                      size={18}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
-                  </Link>
-                  <Link to="/contact" className="btn-ghost">
-                    {t("home.ctaContact")}
-                  </Link>
+              <Reveal
+                delay={250}
+                className="well absolute -bottom-10 -left-6 hidden w-[112%] p-4 font-mono text-[10.5px] leading-relaxed text-paper-dim shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)] sm:block lg:-left-16"
+              >
+                <div aria-hidden="true">
+                  {CONSOLE_LINES.map((line, i) => (
+                    <div key={i} className={line.startsWith("$") ? "text-amber" : undefined}>
+                      {line}
+                    </div>
+                  ))}
+                  <span className="inline-block h-3 w-1.5 animate-blink bg-amber align-middle" />
                 </div>
               </Reveal>
             </div>
+          </div>
 
-            <div className="lg:flex-1 lg:max-w-sm">
-              <Reveal delay={320}>
-                <blockquote className="border-l-2 border-amber/40 pl-6">
-                  <Icon name="quote-open" size={28} className="text-amber/40" />
-                  <p className="mt-4 font-display italic text-2xl text-paper">
-                    {t("home.motto")}
-                  </p>
-                  <p className="mt-4 font-mono text-[11px] text-paper-faint">
-                    {t("home.mottoBy")} · {displayName}
-                  </p>
-                </blockquote>
+          {/* stats strip */}
+          <div className="grid grid-cols-1 divide-y divide-ink-line border-t border-ink-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {(
+              [
+                ["years", "yearsLabel"],
+                ["projects", "projectsLabel"],
+                ["uptime", "uptimeLabel"],
+              ] as const
+            ).map(([numKey, labelKey], i) => (
+              <Reveal key={numKey} delay={i * 120} className="flex items-baseline justify-between gap-4 py-5 sm:flex-col sm:items-start sm:gap-1 sm:py-6">
+                <span className="text-metric font-display font-extrabold text-paper">{t(`home.stats.${numKey}`)}</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-faint">
+                  {t(`home.stats.${labelKey}`)}
+                </span>
               </Reveal>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* MARQUEE */}
-      <div
-        className="overflow-hidden border-y border-ink-line py-4"
-        aria-hidden="true"
-      >
+      {/* ============ MARQUEE ============ */}
+      <div className="overflow-hidden border-y border-ink-line bg-ink-raised py-4" aria-hidden="true">
         <div className="flex w-max animate-marquee">
           {[0, 1].map((dup) => (
             <div key={dup} className="flex items-center">
-              {marqueeItems.map((item, i) => (
-                <span key={`${dup}-${i}`} className="flex items-center">
-                  <span className="px-4">{item}</span>
-                  <Icon name="sparkles" size={12} className="text-amber" />
+              {marqueeItems.map((item) => (
+                <span key={`${dup}-${item}`} className="flex items-center font-mono text-[11px] uppercase tracking-[0.25em] text-paper-faint">
+                  <span className="px-6">{item}</span>
+                  <span className="text-amber/70">◆</span>
                 </span>
               ))}
             </div>
@@ -156,85 +196,158 @@ export const HomePage = () => {
         </div>
       </div>
 
-      {/* SKILLS */}
-      <section className="section-y container-x">
-        <SectionHeading
-          eyebrow={t("home.skillsLabel")}
-          title={t("home.skillsTitle")}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {SKILLS.map((skill, i) => (
-            <Reveal key={skill.key} delay={i * 120}>
-              <div className="card card-hover p-8 h-full">
-                <Icon name={skill.icon} size={28} className="text-amber" />
-                <h3 className="text-display-md mt-6 mb-3">
-                  {t(`home.skills.${skill.key}.title`)}
-                </h3>
-                <p className="text-paper-dim">
-                  {t(`home.skills.${skill.key}.body`)}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {(t(`home.skills.${skill.key}.tags`, {
-                    returnObjects: true,
-                  }) as unknown as string[]).map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-[11px] text-paper-faint border border-ink-line rounded-full px-2.5 py-0.5"
-                    >
-                      {tag}
+      {/* ============ SKILLS ============ */}
+      <section id="skills" className="section-y relative">
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-32">
+              <SectionHeading
+                index="01"
+                eyebrow={t("home.skillsLabel")}
+                title={
+                  <>
+                    {t("home.skillsTitle").split(",")[0]}
+                    {t("home.skillsTitle").includes(",") && (
+                      <>
+                        ,{" "}
+                        <span className="font-serif italic text-amber">
+                          {t("home.skillsTitle").split(",").slice(1).join(",").trim()}
+                        </span>
+                      </>
+                    )}
+                  </>
+                }
+              />
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <ul>
+              {SKILLS.map((s, i) => (
+                <Reveal as="li" key={s.key} delay={i * 100} className="group border-t border-ink-line last:border-b">
+                  <div className="grid grid-cols-[3.5rem_1fr] gap-4 py-8 transition-transform duration-300 ease-smooth group-hover:translate-x-1.5 sm:grid-cols-[5rem_1fr] sm:gap-6 sm:py-10">
+                    <span className="pt-1 font-mono text-sm text-paper-faint transition-colors duration-300 group-hover:text-amber">
+                      0{i + 1}
                     </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          ))}
+                    <div>
+                      <h3 className="flex items-center gap-3 text-display-md font-bold text-paper">
+                        <Icon name={s.icon} size={22} className="shrink-0 text-amber" />
+                        {t(`home.skills.${s.key}.title`)}
+                      </h3>
+                      <p className="mt-3 max-w-xl leading-relaxed text-paper-dim">
+                        {t(`home.skills.${s.key}.body`)}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper-faint">
+                        {(t(`home.skills.${s.key}.tags`, { returnObjects: true }) as string[]).map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* FEATURED WORK */}
-      <section className="section-y container-x">
-        <SectionHeading
-          eyebrow={t("home.workLabel")}
-          title={t("home.workTitle")}
-          description={t("home.workBody")}
-          action={
-            <Link
-              to="/projects"
-              className="link-line inline-flex items-center gap-1.5"
-            >
-              {t("common.viewAll")}
-              <Icon name="arrow-right" size={16} />
-            </Link>
-          }
-        />
-        <Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projectsLoading ? (
-              [1, 2, 3].map((i) => <SkeletonCard key={i} />)
-            ) : (
-              featured.map((p) => <ProjectCard key={p._id} project={p} />)
-            )}
-          </div>
-        </Reveal>
+      {/* ============ SELECTED WORK ============ */}
+      <section id="work" className="section-y relative bg-ink-raised">
+        <div className="container-x">
+          <SectionHeading
+            index="02"
+            eyebrow={t("home.workLabel")}
+            title={
+              <>
+                {t("home.workTitle")}
+              </>
+            }
+            description={t("home.workBody")}
+            action={
+              <Link to="/projects" className="link-line font-mono text-[11px] uppercase tracking-[0.18em]">
+                {t("common.viewAll")}
+                <Icon name="arrow-up-right" size={14} />
+              </Link>
+            }
+          />
+
+          {projectsLoading ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="border-b border-ink-line">
+              {featured.map((p, i) => (
+                <Reveal key={p._id} delay={i * 80}>
+                  <Link
+                    to={`/projects/${p.slug}`}
+                    className="group relative block border-t border-ink-line py-7 transition-colors duration-300 hover:bg-ink-card sm:py-9"
+                  >
+                    <div className="grid grid-cols-[3rem_1fr] items-start gap-4 px-1 sm:grid-cols-[5rem_1fr] sm:gap-8 lg:grid-cols-[6rem_1fr_auto]">
+                      <span className="pt-2 font-mono text-xs text-paper-faint transition-colors duration-300 group-hover:text-amber">
+                        0{i + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="text-display-md font-bold text-paper transition-colors duration-300 group-hover:text-amber">
+                          {p.title}
+                        </h3>
+                        <p className="mt-2 line-clamp-1 max-w-xl text-sm text-paper-dim">
+                          {typeof p.description === "string" ? p.description : p.description[lang]}
+                        </p>
+                        <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-paper-faint">
+                          {p.technologies.slice(0, 4).join(" · ")}
+                        </p>
+                        {/* inline cover on small screens */}
+                        <div className="crop mt-5 overflow-hidden rounded-lg lg:hidden">
+                          {p.image ? (
+                            <img src={p.image} alt="" className="aspect-[8/5] w-full object-cover" loading="lazy" />
+                          ) : (
+                            <ProjectCover slug={p.slug} title={p.title} className="aspect-[8/5] w-full" />
+                          )}
+                        </div>
+                      </div>
+                      <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ink-line text-paper-faint transition-all duration-300 group-hover:border-amber group-hover:bg-amber group-hover:text-ink lg:flex">
+                        <Icon name="arrow-up-right" size={18} />
+                      </span>
+                    </div>
+                    {/* hover preview (desktop) */}
+                    <div
+                      aria-hidden="true"
+                      className="crop pointer-events-none absolute right-24 top-1/2 hidden w-64 -translate-y-1/2 scale-90 rotate-2 opacity-0 transition-all duration-500 ease-smooth group-hover:scale-100 group-hover:opacity-100 lg:block"
+                    >
+                      {p.image ? (
+                        <img src={p.image} alt="" className="aspect-[8/5] w-full rounded-lg object-cover shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)]" loading="lazy" />
+                      ) : (
+                        <ProjectCover slug={p.slug} title={p.title} className="aspect-[8/5] w-full rounded-lg shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)]" />
+                      )}
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
-      {/* CTA STRIP */}
-      <section className="section-y container-x">
-        <Reveal>
-          <div className="card p-10 md:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <h2 className="text-display-md text-paper">
-                {t("contact.title")}
-              </h2>
-              <p className="text-paper-dim mt-3 max-w-xl">
-                {t("contact.subtitle")}
-              </p>
-            </div>
-            <Link to="/contact" className="btn-primary shrink-0">
-              {t("home.ctaContact")}
+      {/* ============ CTA BAND (inverted paper) ============ */}
+      <section className="paper-block relative overflow-hidden">
+        <div aria-hidden="true" className="absolute inset-0 opacity-[0.35]" style={{ backgroundImage: "radial-gradient(rgba(23,20,18,0.14) 1px, transparent 1px)", backgroundSize: "26px 26px" }} />
+        <div className="container-x relative grid gap-10 py-20 sm:py-24 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-8">
+            <div className="eyebrow mb-5 !text-amber-deep before:!bg-amber-deep/60">{t("home.ctaBand.eyebrow")}</div>
+            <h2 className="text-display-lg font-extrabold text-cream-ink">
+              {t("home.ctaBand.title")}
+            </h2>
+            <p className="mt-4 max-w-xl leading-relaxed text-cream-dim">{t("home.ctaBand.body")}</p>
+          </div>
+          <div className="lg:col-span-4 lg:text-right">
+            <Link to="/contact" className="btn-dark">
+              {t("home.ctaBand.button")}
+              <Icon name="send" size={15} />
             </Link>
           </div>
-        </Reveal>
+        </div>
       </section>
     </div>
   );

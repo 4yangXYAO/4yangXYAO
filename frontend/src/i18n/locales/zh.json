@@ -22,78 +22,137 @@
     "all": "全部",
     "technologies": "技术",
     "notFound": "页面不存在",
-    "notFoundBody": "该页面不存在或已被移动。",
+    "notFoundBody": "该页面不存在或已移动。",
     "goHome": "回到首页"
   },
   "home": {
-    "status": "开放合作中",
+    "status": "开放合作",
     "greeting": "你好，我是",
     "name": "Kharis Jalaludin",
-    "tagline": "白天是网络工程师，晚上是网页开发者。我做的东西安静运行，不易出故障。",
+    "role": "IT 与网络工程师 — 前端与 AI 副业",
+    "location": "印尼·万隆",
+    "tagline": "网络保持在线，界面保持锋利。",
+    "taglineAccent": "安静地",
+    "taglineFull": "网络保持在线，界面保持锋利 — 一切保持",
     "motto": "No complain, never explain.",
     "mottoBy": "执行者",
-    "ctaWork": "看看作品",
+    "ctaWork": "查看作品",
     "ctaContact": "联系我",
-    "skillsLabel": "我的领域",
+    "localTime": "本地时间",
+    "stats": {
+      "years": "6+",
+      "yearsLabel": "年网络经验",
+      "projects": "20",
+      "projectsLabel": "个已交付项目",
+      "uptime": "99.9%",
+      "uptimeLabel": "家庭实验室在线率"
+    },
+    "skillsLabel": "我能做什么",
     "skillsTitle": "三顶帽子，一间工坊",
     "skills": {
       "network": {
         "title": "网络与 IT 支持",
-        "body": "路由器、交换机、服务器、监控。办公室的基础设施就该无聊——无聊意味着健康。",
+        "body": "路由器、交换机、服务器、监控。办公基础设施应该无聊 — 无聊意味着健康。",
         "tags": ["Cisco", "Mikrotik", "Linux", "监控"]
       },
       "frontend": {
-        "title": "网页开发",
-        "body": "React、TypeScript、Tailwind。我在乎干净的代码、快速的加载，和大多数人注意不到的细节。",
+        "title": "Web 开发",
+        "body": "React、TypeScript、Tailwind。我在乎干净的代码、快的加载速度，和大多数人注意不到的细节。",
         "tags": ["React", "TypeScript", "Next.js", "Vite"]
       },
       "ai": {
         "title": "AI 工具链",
-        "body": "我把大模型和智能体接进真实工作流——内容管线、自动化，以及真正能干活的助手。",
+        "body": "我把 LLM 和智能体接进真实工作流 — 内容流水线、自动化、真正能干活的助手。",
         "tags": ["LLM", "智能体", "自动化"]
       }
     },
-    "marquee": "网络工程 · 网页开发 · AI 自动化 · 家庭实验室 · Linux · TypeScript · Mikrotik · React",
+    "marquee": "网络工程 · Web 开发 · AI 自动化 · 家庭实验室 · Linux · TypeScript · Mikrotik · React",
     "workLabel": "精选作品",
     "workTitle": "我构建过的东西",
-    "workBody": "内部工具、客户项目，还有留下来的实验。档案里的一部分。"
+    "workBody": "内部工具、客户项目、以及活下来的实验。来自档案库的几件。",
+    "workIndex": "索引",
+    "workYear": "年份",
+    "ctaBand": {
+      "eyebrow": "下一个项目",
+      "title": "需要一个真的会读日志的人？",
+      "body": "告诉我什么坏了 — 或者你想构建什么。我通常一天内回复。",
+      "button": "开始对话"
+    }
   },
   "projects": {
     "title": "项目",
-    "subtitle": "我构建的工具、网站和系统——从网络监控到电子商务。",
+    "subtitle": "我构建的工具、网站和系统 — 从网络监控到电商。",
     "searchPlaceholder": "搜索项目…",
-    "empty": "没有与搜索匹配的项目。",
+    "empty": "没有匹配的项目。",
     "featuredBadge": "精选",
     "overview": "概览",
     "techStack": "技术栈",
     "moreProjects": "更多项目",
     "allProjects": "全部项目",
-    "visit": "访问站点",
-    "source": "源代码"
+    "visit": "访问网站",
+    "source": "源代码",
+    "count": "{{count}} 个项目",
+    "filterFeatured": "仅精选",
+    "backToAll": "返回全部项目"
   },
   "about": {
     "label": "关于",
     "title": "终端背后的人",
-    "lead": "我是 Kharis——一名来自印度尼西亚的 IT 与网络工程师，在第三次上架机柜和第一次生产事故之间，爱上了 Web。",
-    "p1": "本职是让网络活着：布线、配置、监控，偶尔还有凌晨两点那通\"打印机突然坏了\"的电话（从来不是打印机的问题）。爱好——后来变成了第二份工作——是写软件：仪表盘、网店、机器人，还有偶尔比我勤快的 AI 助手。",
-    "p2": "我喜欢外表安静、内部井然有序的系统：机柜里扎带整齐，仓库里提交干净。我学到的大部分东西，都是先在家里把东西弄坏换来的——这样工作上就不会坏。",
+    "lead": "我是 Kharis — 一名印尼的 IT 与网络工程师，在第三次上架机柜和第一次生产事故之间爱上了 Web。",
+    "p1": "主业是让网络活着：布线、配置、监控，以及凌晨两点那通\"打印机突然坏了\"的电话（从来不是打印机）。爱好 — 后来变成了第二份工作 — 是构建软件：仪表盘、商店、机器人，和偶尔的 AI 助手。",
+    "p2": "我喜欢外表安静、内部井然有序的系统。机柜里有线带，仓库里有干净的提交。大部分经验来自先在实验室把东西弄坏，这样工作上就不会坏。",
+    "pullQuote": "机柜里有线带。仓库里有干净的提交。",
     "valuesTitle": "我的工作方式",
     "values": {
       "boring": {
         "title": "无聊是一种特性",
-        "body": "可预测的技术、有记录的决策，周五下午四点五十五分不搞聪明操作。"
+        "body": "可预测的技术、有记录的决策、周五下午 4:55 不做聪明的操作。"
       },
       "finish": {
         "title": "先上线，再打磨",
-        "body": "能用的 v1 胜过漂亮的计划。我公开迭代，认真对待反馈。"
+        "body": "能跑的 v1 胜过漂亮的计划。我公开迭代，认真对待反馈。"
       },
       "curious": {
         "title": "保持好奇",
-        "body": "新工具、新协议、新模型——与其读文章，不如在自家实验室跑一遍。"
+        "body": "新工具、新协议、新模型 — 我宁愿在实验室试一遍，也不只是读文档。"
+      }
+    },
+    "timelineTitle": "来时的路",
+    "timeline": {
+      "2017": {
+        "title": "第一个机柜",
+        "body": "从 IT 支持开始 — 打印机、配线架，并学到 90% 的问题在第 8 层。"
+      },
+      "2019": {
+        "title": "网络工程",
+        "body": "转入全职网络工作：Cisco、Mikrotik、监控栈，和值班轮换。"
+      },
+      "2022": {
+        "title": "转向前端",
+        "body": "React、TypeScript，和一个失控的家庭实验室仪表盘。Web 成了第二门手艺。"
+      },
+      "2024": {
+        "title": "AI 入环",
+        "body": "把 LLM 和智能体接进真实工作流 — 内容流水线、助手、能交付的自动化。"
+      }
+    },
+    "currentlyTitle": "最近",
+    "currently": {
+      "learning": {
+        "label": "学习",
+        "value": "eBPF 与网络可观测性"
+      },
+      "reading": {
+        "label": "阅读",
+        "value": "说实话，是 RFC"
+      },
+      "building": {
+        "label": "构建",
+        "value": "这个网站，又"
       }
     },
     "facts": {
-      "location": "所在地",
+      "location": "常驻",
       "locationValue": "印度尼西亚",
       "focus": "当前专注",
       "focusValue": "Web 应用与 AI 工作流",
@@ -103,32 +162,47 @@
   },
   "stack": {
     "label": "技术栈",
-    "title": "工坊里的工具",
+    "title": "吃饭的家伙",
     "subtitle": "我常用的软件与硬件，按擅长的领域分组。",
-    "empty": "暂无技术栈数据。",
+    "empty": "还没有技术栈条目。",
     "items": "项",
-    "demo": "实时演示",
-    "source": "源代码"
+    "demo": "在线演示",
+    "source": "源码",
+    "experimentsLabel": "实验与玩具",
+    "experimentsTitle": "在这里坏掉，生产环境就不必坏",
+    "depth": "日常使用深度",
+    "categories": {
+      "network": "网络与基础设施",
+      "web": "Web 与前端",
+      "data": "数据、AI 与自动化"
+    }
   },
   "contact": {
     "label": "联系",
-    "title": "聊聊技术吧",
-    "subtitle": "有项目、有难题，或只想争论 Mikrotik 和 Cisco 谁更强？我的收件箱敞开。",
+    "title": "聊聊技术",
+    "subtitle": "有项目、有难题，或只想争论 Mikrotik 对 Cisco？我的收件箱开着。",
+    "formTitle": "发送消息",
+    "formNote": "所有字段必填。不是订阅推送，我保证。",
+    "availability": {
+      "title": "此刻",
+      "status": "开放合作",
+      "response": "通常一天内回复"
+    },
     "form": {
       "name": "你的名字",
-      "namePlaceholder": "张三",
+      "namePlaceholder": "Jane Doe",
       "email": "邮箱",
-      "emailPlaceholder": "zhang@example.com",
-      "message": "留言",
-      "messagePlaceholder": "你最近在做什么？",
+      "emailPlaceholder": "jane@example.com",
+      "message": "消息",
+      "messagePlaceholder": "你在做什么？",
       "send": "发送消息",
       "sending": "发送中…",
-      "success": "消息已发送——我会尽快回复。",
+      "success": "已发送 — 我会尽快回复。",
       "failed": "发送失败。请重试或直接给我发邮件。",
       "validation": {
         "name": "请填写你的名字。",
-        "email": "邮箱格式不正确。",
-        "message": "再多说几句（至少 10 个字符）。"
+        "email": "邮箱格式看起来不对。",
+        "message": "多说一点（至少 10 个字符）。"
       }
     },
     "direct": {
@@ -139,9 +213,13 @@
     }
   },
   "footer": {
-    "tagline": "网络与 Web 工程师，在印度尼西亚安静地构建。",
+    "tagline": "网络与 Web 工程师，安静地在印尼构建。",
     "credits": "与 Alya、Jester、Rena 和 ❤️ 一起",
     "rights": "版权所有。",
-    "status": "系统运行正常"
+    "status": "所有系统正常",
+    "sitemap": "站点地图",
+    "elsewhere": "其他平台",
+    "backToTop": "回到顶部",
+    "localTime": "万隆"
   }
 }

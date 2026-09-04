@@ -1,11 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-/* ------------------------------------------------------------------ */
-/* Base                                                               */
-/* ------------------------------------------------------------------ */
-
+/* ---------- base ---------- */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -14,7 +11,6 @@
 
   body {
     @apply bg-ink text-paper font-sans antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
   }
 
@@ -22,130 +18,225 @@
     @apply bg-amber text-ink;
   }
 
-  :focus-visible {
-    @apply outline-none ring-2 ring-amber/70 ring-offset-2 ring-offset-ink rounded-sm;
-  }
-
-  h1, h2, h3 {
-    @apply font-display text-paper;
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
-
-  /* thin warm scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-ink;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-ink-line rounded-full;
+    @apply bg-ink-bright rounded-full;
   }
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-paper-faint;
   }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-amber/70 ring-offset-2 ring-offset-ink;
+  }
 }
 
-/* ------------------------------------------------------------------ */
-/* Components                                                          */
-/* ------------------------------------------------------------------ */
-
+/* ---------- components ---------- */
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-8xl px-5 sm:px-8 lg:px-12;
   }
 
   .section-y {
-    @apply py-20 md:py-32;
+    @apply py-20 sm:py-28 lg:py-36;
   }
 
-  /* small mono label — used sparingly */
+  /* mono label with leading hairline */
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-amber;
+    @apply inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-amber;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply block h-px w-8 bg-amber/60;
   }
 
-  /* buttons */
+  /* oversized ghost section number */
+  .section-num {
+    @apply pointer-events-none select-none font-display text-[7rem] font-extrabold leading-none text-paper/[0.05] sm:text-[10rem];
+  }
+
+  /* buttons — primary has a light sweep on hover */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
-           text-[15px] font-medium transition-all duration-300 ease-smooth
-           active:scale-[0.98];
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] transition-all duration-300 ease-smooth;
   }
   .btn-primary {
-    @apply btn bg-amber text-ink hover:bg-amber-deep;
+    @apply btn bg-amber font-semibold text-ink hover:bg-amber-deep;
+  }
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.45) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .btn-primary:hover::after {
+    animation: sweep 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .btn-ghost {
-    @apply btn border border-ink-line text-paper hover:border-amber/60 hover:text-amber;
+    @apply btn border border-ink-bright text-paper hover:border-amber hover:text-amber;
+  }
+  .btn-dark {
+    @apply btn bg-cream-ink text-cream hover:bg-cream-ink/85;
   }
 
-  /* animated underline link */
+  /* text link with animated underline */
   .link-line {
-    @apply relative inline-block text-paper-dim transition-colors hover:text-paper;
+    @apply relative inline-flex items-center gap-1.5 text-paper transition-colors duration-300 hover:text-amber;
   }
   .link-line::after {
     content: "";
-    @apply absolute left-0 -bottom-0.5 h-px w-full origin-right scale-x-0 bg-amber transition-transform duration-300 ease-smooth;
+    @apply absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-amber transition-transform duration-300 ease-smooth;
   }
-  .link-line:hover::after,
-  .link-line[aria-current="page"]::after {
+  .link-line:hover::after {
     @apply origin-left scale-x-100;
   }
-  .link-line[aria-current="page"] {
-    @apply text-paper;
-  }
 
-  /* cards */
+  /* surfaces */
   .card {
-    @apply rounded-2xl border border-ink-line bg-ink-card transition-all duration-500 ease-smooth;
+    @apply rounded-xl border border-ink-line bg-ink-card transition-all duration-300 ease-smooth;
   }
   .card-hover {
-    @apply hover:-translate-y-1 hover:border-amber/40;
+    @apply hover:-translate-y-1 hover:border-ink-bright hover:shadow-[0_16px_40px_-16px_rgba(0,0,0,0.8)];
   }
 
-  /* inputs (public forms only; admin keeps its own) */
+  /* console / well */
+  .well {
+    @apply rounded-lg border border-ink-line bg-ink-deep;
+  }
+
+  /* form field — bottom-ruled, editorial */
   .field {
-    @apply w-full rounded-xl border border-ink-line bg-ink-soft px-4 py-3.5 text-[15px]
-           text-paper placeholder:text-paper-faint transition-colors duration-300
-           focus:border-amber/60 focus:outline-none;
+    @apply w-full border-0 border-b border-ink-line bg-transparent py-3 font-sans text-[15px] text-paper placeholder:text-paper-faint focus:border-amber focus:outline-none focus:ring-0 transition-colors duration-300;
+  }
+  .field-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-paper-faint;
+  }
+
+  /* proficiency meter */
+  .meter {
+    @apply h-[3px] w-full overflow-hidden rounded-full bg-ink-line;
+  }
+  .meter-fill {
+    @apply h-full rounded-full bg-amber transition-[width] duration-1000 ease-smooth;
+    width: var(--w, 0%);
+    animation: meter-grow 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+  @keyframes meter-grow {
+    from {
+      width: 0;
+  }
+    to {
+      width: var(--w, 0%);
+  }
+  }
+
+  /* inverted paper section */
+  .paper-block {
+    @apply bg-cream text-cream-ink;
+  }
+
+  /* blueprint grid backdrop */
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(237, 233, 227, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(237, 233, 227, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* amber ambient glow blob */
+  .glow-amber {
+    @apply pointer-events-none absolute rounded-full;
+    background: radial-gradient(circle, rgba(233, 162, 59, 0.16) 0%, transparent 65%);
+    filter: blur(2px);
+  }
+
+  /* crop-mark frame (engineering registration ticks) */
+  .crop {
+    @apply relative;
+  }
+  .crop::before,
+  .crop::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .crop::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid rgba(233, 162, 59, 0.85);
+    border-left: 2px solid rgba(233, 162, 59, 0.85);
+  }
+  .crop::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid rgba(233, 162, 59, 0.85);
+    border-right: 2px solid rgba(233, 162, 59, 0.85);
+  }
+
+  /* film grain */
+  .grain {
+    @apply pointer-events-none fixed inset-0 z-50 opacity-[0.05];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* scroll reveal */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  [data-reveal="mask"] {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal="scale"] {
+    transform: scale(0.96) translateY(16px);
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Scroll reveal (driven by <Reveal/>, pure CSS transitions)          */
-/* ------------------------------------------------------------------ */
-
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
-}
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
-/* subtle film grain instead of scanlines */
-.grain::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+/* ---------- motion safety ---------- */
+.text-display-2xl,
+.text-display-xl,
+.text-display-lg,
+.text-display-md,
+.text-metric {
+  font-family: "Bricolage Grotesque Variable", Georgia, serif;
 }
-
-/* ------------------------------------------------------------------ */
-/* Motion preferences                                                  */
-/* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -159,7 +250,8 @@
     transition-duration: 0.01ms !important;
   }
   [data-reveal] {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 }
