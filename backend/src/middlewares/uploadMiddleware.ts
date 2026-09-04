@@ -1,10 +1,17 @@
 import multer from "multer";
+import os from "os";
 import path from "path";
 import fs from "fs";
 
-const uploadDir = path.resolve(process.cwd(), "uploads");
-
-if (!fs.existsSync(uploadDir)) {
+// Vercel's filesystem is read-only outside /tmp. When the project dir can't be
+// written, fall back to tmp (files are then ephemeral per instance; real
+// persistence needs Vercel Blob / Cloudinary - pending decision).
+const localDir = path.resolve(process.cwd(), "uploads");
+let uploadDir = localDir;
+try {
+  fs.mkdirSync(localDir, { recursive: true });
+} catch {
+  uploadDir = path.join(os.tmpdir(), "uploads");
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
