@@ -70,7 +70,9 @@ function App() {
             <Route
               path="/*"
               element={
-                <div className="grain flex min-h-screen flex-col">
+                <div className="flex min-h-screen flex-col">
+                  {/* film-grain texture — fixed overlay, out of flow (see .grain in index.css) */}
+                  <div className="grain" aria-hidden="true" />
                   <Navbar />
                   <main className="flex-1">
                     <Routes>
