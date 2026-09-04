@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { authService } from "../../services/authService";
+import type { LoginInput } from "../../types/auth";
 import { Button } from "../../components/common/Button";
 
 const loginSchema = z.object({
@@ -13,7 +14,10 @@ const loginSchema = z.object({
   password: z.string().min(1, "Password required"),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+// tsconfig has strictNullChecks off, which makes zod's z.infer mark every key
+// optional. Use the explicit service contract instead; the schema still
+// validates at runtime.
+type LoginFormData = LoginInput;
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
