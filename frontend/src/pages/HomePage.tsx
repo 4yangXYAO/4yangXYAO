@@ -28,16 +28,6 @@ const SKILLS = [
   { key: "ai", icon: "sparkles" },
 ] as const;
 
-const CONSOLE_LINES = [
-  "$ traceroute 4yang-xyao.site",
-  " 1  homelab.local        0.42 ms",
-  " 2  idn-edge.telkom.net  8.1 ms",
-  " 3  sin-core.vercel.net  14 ms",
-  " 4  www.4yang-xyao.site  42 ms  [200 OK]",
-  "$ uptime -p",
-  " up 24/7, humans notified: 0",
-];
-
 const renderName = (name: string) => {
   const words = name.trim().split(/\s+/);
   if (words.length < 2) return name;
@@ -142,19 +132,6 @@ export const HomePage = () => {
                     className="aspect-[4/5] w-full object-cover"
                     loading="eager"
                   />
-                </div>
-              </Reveal>
-              <Reveal
-                delay={250}
-                className="well absolute -bottom-10 -left-6 hidden w-[112%] p-4 font-mono text-[10.5px] leading-relaxed text-paper-dim shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)] sm:block lg:-left-16"
-              >
-                <div aria-hidden="true">
-                  {CONSOLE_LINES.map((line, i) => (
-                    <div key={i} className={line.startsWith("$") ? "text-amber" : undefined}>
-                      {line}
-                    </div>
-                  ))}
-                  <span className="inline-block h-3 w-1.5 animate-blink bg-amber align-middle" />
                 </div>
               </Reveal>
             </div>

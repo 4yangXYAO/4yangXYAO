@@ -9,3 +9,4 @@ build/
 *.tsbuildinfo
 *.log
 .DS_Store
+.vercel
