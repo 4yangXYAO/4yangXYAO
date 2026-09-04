@@ -15,7 +15,6 @@
     { "src": "/api/v1/(.*)", "dest": "backend/src/server.ts" },
     { "src": "/uploads/(.*)", "dest": "backend/uploads/$1" },
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "frontend/$1" },
     { "src": "/(.*)", "dest": "frontend/index.html" }
   ]
 }
