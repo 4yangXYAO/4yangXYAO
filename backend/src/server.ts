@@ -11,6 +11,8 @@ import stackroutes from "./routes/StackRoutes";
 import profileRoutes from "./routes/profileRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware";
+import { FALLBACK_PROJECTS } from "./data/projects";
+import { FALLBACK_STACKS } from "./data/stacks";
 
 const app = express();
 const port = Number(process.env.PORT || 5000);
@@ -34,16 +36,46 @@ app.get("/", (_req, res) => {
   res.json({ message: "API running" });
 });
 
-// All /api routes need Mongo. connectDB is a cached singleton, so after the
-// first success this is a resolved-promise await (no per-request I/O).
-// DB down => clear 503 instead of a 500 on every request.
-app.use("/api", async (_req, res, next) => {
+// Mongo is optional until Fase 0. On a successful connect we just proceed.
+// On failure, read endpoints for projects/stacks are served from static data
+// so the site stays fully functional without a database; writes and other
+// endpoints still return a clear 503.
+// ponytail: single source of truth for this data once the DB is provisioned.
+app.use("/api/v1", async (req, res, next) => {
   try {
     await connectDB();
-    next();
+    return next();
   } catch {
-    res.status(503).json({ success: false, message: "Database unavailable" });
+    // fall through to static fallback below
   }
+
+  if (req.method === "GET") {
+    const p = req.path;
+    if (p === "/projects") {
+      const featured = req.query.featured === "true";
+      const data = featured
+        ? FALLBACK_PROJECTS.filter((x) => x.featured)
+        : FALLBACK_PROJECTS;
+      return res.json({ success: true, data });
+    }
+    if (p.startsWith("/projects/")) {
+      const slug = p.slice("/projects/".length);
+      const project = FALLBACK_PROJECTS.find((x) => x.slug === slug);
+      if (!project) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Project not found" });
+      }
+      return res.json({ success: true, data: project });
+    }
+    if (p === "/stacks") {
+      return res.json({ success: true, data: FALLBACK_STACKS });
+    }
+  }
+
+  return res
+    .status(503)
+    .json({ success: false, message: "Database unavailable" });
 });
 
 app.use("/api/v1/auth", authRoutes);

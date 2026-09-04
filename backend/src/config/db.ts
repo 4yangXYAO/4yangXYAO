@@ -10,7 +10,9 @@ export const connectDB = (): Promise<typeof mongoose> => {
     if (!uri) {
       return Promise.reject(new Error("MONGO_URI is required"));
     }
-    conn = mongoose.connect(uri);
+    // ponytail: fail fast when Mongo is unreachable so the static fallback
+    // in server.ts engages in ~3s instead of hanging on the 30s default.
+    conn = mongoose.connect(uri, { serverSelectionTimeoutMS: 3000 });
     conn.catch(() => {
       conn = null;
     });
