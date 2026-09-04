@@ -1,73 +1,92 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import type { Project } from "../../types/project";
+import { useTranslation } from "react-i18next";
+import { Icon } from "../common/Icon";
+import { ProjectCover } from "../common/ProjectCover";
 import { getImageUrl } from "../../utils/constants";
 
+export interface CardProject {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string | { en: string; id: string; zh: string };
+  technologies: string[] | string;
+  image?: string;
+  imageUrl?: string;
+  featured?: boolean;
+}
+
 interface ProjectCardProps {
-  project: Project;
+  project: CardProject;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const { t, i18n } = useTranslation();
+
+  const description =
+    typeof project.description === "string"
+      ? project.description
+      : project.description[i18n.language as "en" | "id" | "zh"] ??
+        project.description.en;
+
+  const technologies = Array.isArray(project.technologies)
+    ? project.technologies
+    : project.technologies
+        .split(",")
+        .map((tech) => tech.trim())
+        .filter(Boolean);
+
+  const cover = project.image ?? project.imageUrl;
+
   return (
-    <motion.div
-      layout
-      className="group relative bg-[#121212]/70 backdrop-blur-md border border-white/5 border-l-4 border-l-[#00daf7] transition-all duration-300 hover:border-[#00daf7]/40 hover:-translate-y-1 overflow-hidden"
+    <Link
+      to={`/projects/${project.slug}`}
+      className="card card-hover overflow-hidden group h-full flex flex-col"
     >
-      {/* Index Number Overlay */}
-      <div className="absolute top-2 right-4 pointer-events-none font-mono text-[40px] font-black text-white/5 group-hover:text-[#00daf7]/10 transition-colors z-20">
-        00{project.order || "X"}
+      <div className="aspect-[5/3] w-full overflow-hidden relative">
+        {cover ? (
+          <img
+            src={getImageUrl(cover)}
+            alt={project.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <ProjectCover
+            seed={project.slug}
+            label={project.title}
+            className="h-full w-full transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+        )}
+
+        {project.featured && (
+          <span className="absolute top-3 left-3 bg-ink/80 backdrop-blur border border-amber/30 text-amber font-mono text-[10px] uppercase tracking-wider rounded-full px-2.5 py-1">
+            {t("projects.featuredBadge")}
+          </span>
+        )}
       </div>
 
-      <div className="relative h-48 overflow-hidden bg-black">
-         {project.imageUrl && (
-            <img
-              src={getImageUrl(project.imageUrl)}
-              alt={project.title}
-              className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1635332398717-924205a760de?q=80&w=1000&auto=format&fit=crop';
-              }}
-            />
-         )}
-         <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-60"></div>
-         
-         {project.featured && (
-            <div className="absolute top-4 left-4 z-20">
-               <span className="bg-[#00daf7] text-[#0d0d0d] text-[10px] font-mono font-bold px-2 py-1 tracking-widest uppercase">
-                 FEATURED_BUILD
-               </span>
-            </div>
-         )}
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-lg font-display text-paper">{project.title}</h3>
+          <Icon
+            name="arrow-up-right"
+            size={18}
+            className="text-paper-faint transition-all group-hover:text-amber group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1"
+          />
+        </div>
+
+        <p className="mt-2 text-sm text-paper-dim line-clamp-3">
+          {description}
+        </p>
+
+        <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
+          {technologies.map((tech) => (
+            <span key={tech} className="font-mono text-[11px] text-paper-faint">
+              {tech}
+            </span>
+          ))}
+        </div>
       </div>
-
-      <div className="p-6 relative z-10 flex flex-col h-full">
-         <div className="mb-4">
-            <h3 className="text-xl font-display font-bold text-white uppercase group-hover:text-[#00daf7] transition-colors mb-2">
-              {project.title.replace(" ", "_")}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.slice(0, 3).map((tech) => (
-                <span
-                  key={tech}
-                  className="bg-[#1f1f1f] text-gray-500 text-[10px] font-mono px-2 py-0.5 border border-white/5 tracking-tighter"
-                >
-                  {tech.toUpperCase()}
-                </span>
-              ))}
-            </div>
-         </div>
-
-         <p className="text-sm text-gray-400 font-sans line-clamp-2 mb-6 leading-relaxed">
-            {project.description}
-         </p>
-
-         <div className="mt-auto flex items-center justify-between">
-          {/* BUKA_PROTOKOL HIDDEN */}
-         </div>
-      </div>
-      
-      {/* Decorative corner lines */}
-      <div className="absolute bottom-0 right-0 w-8 h-8 pointer-events-none border-r-2 border-b-2 border-transparent group-hover:border-[#00daf7]/30 transition-all duration-300"></div>
-    </motion.div>
+    </Link>
   );
 };

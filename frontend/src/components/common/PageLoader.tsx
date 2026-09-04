@@ -1,35 +1,35 @@
+import { useTranslation } from "react-i18next";
+
 interface PageLoaderProps {
   message?: string;
 }
 
-export const PageLoader: React.FC<PageLoaderProps> = ({
-  message = "Loading...",
-}) => {
+export const PageLoader: React.FC<PageLoaderProps> = ({ message }) => {
+  const { t } = useTranslation();
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-      <div className="relative">
-        <div className="w-12 h-12 rounded-full border-4 border-gray-200" />
-        <div className="absolute top-0 left-0 w-12 h-12 rounded-full border-4 border-transparent border-t-indigo-600 animate-spin" />
-      </div>
-      <p className="text-gray-500 text-sm font-medium animate-pulse">
-        {message}
+    <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
+      <span className="h-8 w-8 animate-spin rounded-full border-2 border-ink-line border-t-amber" />
+      <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper-faint">
+        {message ?? t("common.loading")}
       </p>
     </div>
   );
 };
 
-/* Skeleton Components for loading states */
+/** Suspense fallback for lazy routes */
+export const RouteFallback = () => <PageLoader />;
+
+/* Skeleton components for loading states */
 export const SkeletonCard: React.FC = () => (
-  <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-    <div className="skeleton h-48 w-full" />
-    <div className="p-5 space-y-3">
-      <div className="skeleton h-5 w-3/4 rounded" />
-      <div className="skeleton h-4 w-full rounded" />
-      <div className="skeleton h-4 w-2/3 rounded" />
-      <div className="flex gap-2 mt-4">
-        <div className="skeleton h-6 w-16 rounded-full" />
-        <div className="skeleton h-6 w-16 rounded-full" />
-        <div className="skeleton h-6 w-16 rounded-full" />
+  <div className="card overflow-hidden">
+    <div className="aspect-[5/3] w-full animate-pulse bg-ink-soft" />
+    <div className="space-y-3 p-5">
+      <div className="h-5 w-3/4 animate-pulse rounded bg-ink-soft" />
+      <div className="h-4 w-full animate-pulse rounded bg-ink-soft" />
+      <div className="h-4 w-2/3 animate-pulse rounded bg-ink-soft" />
+      <div className="mt-4 flex gap-2">
+        <div className="h-6 w-16 animate-pulse rounded-full bg-ink-soft" />
+        <div className="h-6 w-16 animate-pulse rounded-full bg-ink-soft" />
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@ export const SkeletonText: React.FC<{ lines?: number }> = ({ lines = 3 }) => (
     {Array.from({ length: lines }).map((_, i) => (
       <div
         key={i}
-        className={`skeleton h-4 rounded ${i === lines - 1 ? "w-2/3" : "w-full"}`}
+        className={`h-4 animate-pulse rounded bg-ink-soft ${i === lines - 1 ? "w-2/3" : "w-full"}`}
       />
     ))}
   </div>

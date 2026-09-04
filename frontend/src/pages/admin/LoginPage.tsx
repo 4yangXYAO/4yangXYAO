@@ -3,11 +3,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { authService } from "../../services/authService";
 import type { LoginInput } from "../../types/auth";
-import { Button } from "../../components/common/Button";
+import { Reveal } from "../../components/common/Reveal";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username required"),
@@ -35,7 +34,7 @@ export const LoginPage = () => {
     setIsLoading(true);
     try {
       await authService.login(data);
-      toast.success("Welcome back, Commander!");
+      toast.success("Welcome back.");
       navigate("/admin/dashboard");
     } catch {
       toast.error("Invalid credentials. Please try again.");
@@ -45,93 +44,85 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-950 px-4 py-12 relative overflow-hidden">
-      {/* Background blobs */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-600/30 rounded-full blur-[120px]" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-600/30 rounded-full blur-[120px]" />
-      </div>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink px-4 py-12">
+      <div className="grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md z-10"
-      >
-        <div className="text-center mb-10">
-          <Link to="/" className="text-3xl font-black gradient-text inline-block mb-3">
-            PORTFOLIO
+      <Reveal className="relative z-10 w-full max-w-md">
+        <div className="mb-10 text-center">
+          <Link
+            to="/"
+            className="font-display text-2xl font-semibold tracking-tight text-paper"
+          >
+            XYAON<span className="text-amber">*</span>
           </Link>
-          <p className="text-gray-400 font-medium">Access your CMS Control Panel</p>
+          <p className="mt-2 text-sm text-paper-dim">Admin console</p>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-xl p-8 rounded-[40px] border border-white/10 shadow-2xl">
+        <div className="card p-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-400 ml-1 uppercase tracking-widest">
+            <div>
+              <label
+                htmlFor="admin-username"
+                className="mb-2 block text-sm text-paper-dim"
+              >
                 Username
               </label>
               <input
+                id="admin-username"
                 {...register("username")}
                 type="text"
                 autoComplete="username"
-                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white/10 transition-all font-medium"
+                className="field"
                 placeholder="Enter username"
               />
               {errors.username && (
-                <p className="text-red-400 text-xs mt-1 font-bold ml-1 uppercase">
+                <p className="mt-1.5 text-[13px] text-red-400">
                   {errors.username.message}
                 </p>
               )}
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-400 ml-1 uppercase tracking-widest">
+            <div>
+              <label
+                htmlFor="admin-password"
+                className="mb-2 block text-sm text-paper-dim"
+              >
                 Password
               </label>
               <input
+                id="admin-password"
                 {...register("password")}
                 type="password"
                 autoComplete="current-password"
-                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white/10 transition-all font-medium"
+                className="field"
                 placeholder="••••••••"
               />
               {errors.password && (
-                <p className="text-red-400 text-xs mt-1 font-bold ml-1 uppercase">
+                <p className="mt-1.5 text-[13px] text-red-400">
                   {errors.password.message}
                 </p>
               )}
             </div>
 
-            <div className="pt-2">
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full py-4 text-base tracking-widest uppercase font-black"
-                size="lg"
-              >
-                {isLoading ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Authenticating
-                  </span>
-                ) : (
-                  "Login"
-                )}
-              </Button>
-            </div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="btn-primary w-full disabled:opacity-60"
+            >
+              {isLoading ? "Authenticating…" : "Login"}
+            </button>
           </form>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="mt-8 text-center">
           <Link
             to="/"
-            className="text-gray-500 hover:text-white transition-colors text-sm font-bold tracking-widest uppercase"
+            className="link-line text-sm text-paper-dim transition-colors hover:text-paper"
           >
-            ← Back to Public Site
+            ← Back to site
           </Link>
         </div>
-      </motion.div>
+      </Reveal>
     </div>
   );
 };

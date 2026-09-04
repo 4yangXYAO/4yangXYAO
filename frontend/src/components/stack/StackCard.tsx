@@ -1,75 +1,54 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import type { Stack } from "../../types/stack";
-import { getImageUrl } from "../../utils/constants";
+import { Icon } from "../common/Icon";
+
+const iconFor = (title: string): string => {
+  const s = title.toLowerCase();
+  if (s.includes("os") || s.includes("system")) return "layers";
+  if (s.includes("data") || s.includes("base")) return "database";
+  if (s.includes("server") || s.includes("api") || s.includes("engine"))
+    return "server";
+  if (s.includes("net") || s.includes("wifi") || s.includes("blast")) return "wifi";
+  if (s.includes("monitor") || s.includes("dashboard")) return "monitor";
+  if (s.includes("cpu") || s.includes("chip")) return "cpu";
+  if (s.includes("cloud")) return "cloud";
+  if (s.includes("shield") || s.includes("security")) return "shield";
+  if (s.includes("code") || s.includes("web") || s.includes("app")) return "code";
+  if (s.includes("terminal") || s.includes("cli")) return "terminal";
+  return "zap";
+};
 
 interface StackCardProps {
   stack: Stack;
 }
 
 export const StackCard: React.FC<StackCardProps> = ({ stack }) => {
-    return (
-        <Link to={`/stacks/${stack.slug}`}>
-            <motion.div
-                layout
-                className="group relative bg-[#121212]/70 backdrop-blur-md border border-white/5 border-l-4 border-l-[#00daf7] transition-all duration-300 hover:border-[#00daf7]/40 hover:-translate-y-1 overflow-hidden h-full cursor-pointer"
-            >
-                {/* Index Number Overlay */}
-                <div className="absolute top-2 right-4 pointer-events-none font-mono text-[40px] font-black text-white/5 group-hover:text-[#00daf7]/10 transition-colors z-20">
-                    00{stack.order || "X"}
-                </div>
+  const { t } = useTranslation();
 
-                <div className="relative h-48 overflow-hidden bg-black">
-                    {stack.imageUrl && (
-                        <img
-                            src={getImageUrl(stack.imageUrl)}
-                            alt={stack.title}
-                            className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
-                            onError={(e) => {
-                                (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1635332398717-924205a760de?q=80&w=1000&auto=format&fit=crop';
-                            }}
-                        />
-                    )}
+  return (
+    <Link to={`/stacks/${stack.slug}`} className="group block">
+      <div className="card card-hover p-6">
+        <div className="flex items-start justify-between">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-amber-soft text-amber">
+            <Icon name={iconFor(stack.title)} size={20} />
+          </div>
+          <Icon
+            name="arrow-up-right"
+            size={18}
+            className="text-paper-faint transition-colors group-hover:text-amber"
+          />
+        </div>
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-60"></div>
+        <h3 className="mt-4 font-display text-lg text-paper">{stack.title}</h3>
+        <p className="mt-2 line-clamp-2 text-sm text-paper-dim">
+          {stack.description}
+        </p>
 
-                    {stack.featured && (
-                        <div className="absolute top-4 left-4 z-20">
-                            <span className="bg-[#00daf7] text-[#0d0d0d] text-[10px] font-mono font-bold px-2 py-1 tracking-widest uppercase">
-                                FEATURED_BUILD
-                            </span>
-                        </div>
-                    )}
-                </div>
-
-                <div className="p-6 relative z-10 flex flex-col h-full">
-                    <div className="mb-4">
-                        <h3 className="text-xl font-display font-bold text-white uppercase group-hover:text-[#00daf7] transition-colors mb-2">
-                            {stack.title.replace(" ", "_")}
-                        </h3>
-                        <div className="flex flex-wrap gap-2">
-                            {stack.technologies.slice(0, 3).map((tech) => (
-                                <span key={tech}
-                                    className="bg-[#00daf7] text-[#0d0d0d] text-[10px] font-mono font-bold px-2 py-1 tracking-widest uppercase">
-                                    {tech.toUpperCase()}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    <p className="text-sm text-gray-400 font-sans line-clamp-2 mb-6 leading-relaxed">
-                        {stack.description}
-                    </p>
-
-                    <div className="mt-auto flex items-center justify-between">
-                         <span className="text-[#00daf7] font-mono text-[10px] font-bold tracking-widest group-hover:translate-x-2 transition-transform">
-                            VIEW_ARCHIVE_V1.0 →
-                         </span>
-                    </div>
-                </div>
-            </motion.div>
-        </Link>
-
-    );
+        <div className="mt-4 font-mono text-[11px] text-paper-faint">
+          {stack.technologies.length} {t("common.technologies")}
+        </div>
+      </div>
+    </Link>
+  );
 };
- 

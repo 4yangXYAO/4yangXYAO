@@ -1,0 +1,281 @@
+// Static fallback projects, used when the API is unavailable.
+// Descriptions are localized; titles stay as neutral tech names.
+
+export interface LocalizedText {
+  en: string;
+  id: string;
+  zh: string;
+}
+
+export interface FallbackProject {
+  _id: string;
+  title: string;
+  slug: string;
+  description: LocalizedText;
+  technologies: string[];
+  featured: boolean;
+  order: number;
+}
+
+export const FALLBACK_PROJECTS: FallbackProject[] = [
+  {
+    _id: "m1",
+    title: "Shop E-Commerce",
+    slug: "shop-ecommerce",
+    description: {
+      en: "Online storefront with a shopping cart and product management.",
+      id: "Toko online dengan keranjang belanja dan manajemen produk.",
+      zh: "带购物车和商品管理的在线商店。",
+    },
+    technologies: ["Next.js", "Redux", "Stripe", "Tailwind"],
+    featured: true,
+    order: 1,
+  },
+  {
+    _id: "m2",
+    title: "Network Monitor",
+    slug: "net-monitor-sys",
+    description: {
+      en: "Real-time monitoring for network infrastructure and server health.",
+      id: "Monitoring real-time untuk infrastruktur jaringan dan kesehatan server.",
+      zh: "网络基础设施与服务器健康的实时监控。",
+    },
+    technologies: ["React", "SNMP", "Node.js", "Grafana"],
+    featured: true,
+    order: 2,
+  },
+  {
+    _id: "m3",
+    title: "IT Support Portal",
+    slug: "it-support-portal",
+    description: {
+      en: "Helpdesk ticket portal for handling users' hardware and software issues.",
+      id: "Portal tiket bantuan untuk menangani keluhan hardware dan software pengguna.",
+      zh: "处理用户软硬件问题的工单帮助台门户。",
+    },
+    technologies: ["TypeScript", "MongoDB", "Express", "Tailwind"],
+    featured: true,
+    order: 3,
+  },
+  {
+    _id: "m4",
+    title: "Admin Dashboard",
+    slug: "admin-dashboard",
+    description: {
+      en: "Admin panel for user data management and system statistics.",
+      id: "Panel administrasi untuk pengelolaan data pengguna dan statistik sistem.",
+      zh: "用于用户数据管理和系统统计的管理面板。",
+    },
+    technologies: ["React", "Chart.js", "Framer Motion"],
+    featured: false,
+    order: 4,
+  },
+  {
+    _id: "m5",
+    title: "Topology Mapper",
+    slug: "net-topology-mapper",
+    description: {
+      en: "Dynamic visualization tool for mapping local area network nodes.",
+      id: "Alat visualisasi dinamis untuk memetakan titik-titik jaringan lokal (LAN).",
+      zh: "用于绘制局域网节点的动态可视化工具。",
+    },
+    technologies: ["Canvas API", "Vis.js", "Networking"],
+    featured: false,
+    order: 5,
+  },
+  {
+    _id: "m6",
+    title: "Portfolio Web",
+    slug: "portfolio-web",
+    description: {
+      en: "This site — a personal portfolio for career track record and technical work.",
+      id: "Situs ini — portofolio pribadi untuk rekam jejak karir dan karya teknis.",
+      zh: "本站——记录职业经历与技术作品的个人作品集。",
+    },
+    technologies: ["React", "Vite", "Framer Motion"],
+    featured: false,
+    order: 6,
+  },
+  {
+    _id: "m7",
+    title: "AI Chatbot",
+    slug: "ai-chatbot",
+    description: {
+      en: "AI chatbot for answering basic technical questions.",
+      id: "Chatbot AI untuk menjawab pertanyaan teknis dasar.",
+      zh: "回答基础技术问题的 AI 聊天机器人。",
+    },
+    technologies: ["OpenAI", "Node.js", "LangChain"],
+    featured: false,
+    order: 7,
+  },
+  {
+    _id: "m8",
+    title: "Task Management",
+    slug: "task-management",
+    description: {
+      en: "Productivity app for task lists and team collaboration.",
+      id: "Aplikasi produktivitas untuk daftar tugas dan kolaborasi tim.",
+      zh: "管理任务清单与团队协作的效率应用。",
+    },
+    technologies: ["Socket.io", "React", "Express"],
+    featured: false,
+    order: 8,
+  },
+  {
+    _id: "m9",
+    title: "Hardware Inventory",
+    slug: "hardware-inventory",
+    description: {
+      en: "Inventory system for IT hardware with maintenance history.",
+      id: "Sistem pendataan inventaris perangkat keras IT dan riwayat pemeliharaannya.",
+      zh: "带维护记录的 IT 硬件库存系统。",
+    },
+    technologies: ["Next.js", "Prisma", "PostgreSQL"],
+    featured: false,
+    order: 9,
+  },
+  {
+    _id: "m10",
+    title: "Blog Platform",
+    slug: "blog-platform",
+    description: {
+      en: "Article publishing platform with a content management dashboard.",
+      id: "Platform penulisan artikel dengan dashboard manajemen konten.",
+      zh: "带内容管理仪表盘的文章发布平台。",
+    },
+    technologies: ["React", "Node.js", "Markdown"],
+    featured: false,
+    order: 10,
+  },
+  {
+    _id: "m11",
+    title: "Coffee Shop Site",
+    slug: "coffee-shop-site",
+    description: {
+      en: "Profile site for a coffee shop with an interactive menu and store locations.",
+      id: "Situs profil kedai kopi dengan menu interaktif dan lokasi toko.",
+      zh: "带互动菜单和门店位置的咖啡店介绍网站。",
+    },
+    technologies: ["React", "Tailwind", "Vite"],
+    featured: false,
+    order: 11,
+  },
+  {
+    _id: "m12",
+    title: "School Info System",
+    slug: "school-info-system",
+    description: {
+      en: "Information system for student, teacher, and class schedule data.",
+      id: "Sistem informasi untuk mengelola data siswa, guru, dan jadwal pelajaran.",
+      zh: "管理学生、教师和课程表数据的信息系统。",
+    },
+    technologies: ["Next.js", "Database", "Authentication"],
+    featured: false,
+    order: 12,
+  },
+  {
+    _id: "m13",
+    title: "Company Landing Page",
+    slug: "company-landing-page",
+    description: {
+      en: "Professional landing page promoting company services and profile.",
+      id: "Halaman landing profesional untuk mempromosikan layanan dan profil perusahaan.",
+      zh: "推广公司服务与简介的专业落地页。",
+    },
+    technologies: ["HTML", "CSS", "JavaScript"],
+    featured: false,
+    order: 13,
+  },
+  {
+    _id: "m14",
+    title: "Service Booking",
+    slug: "service-booking-app",
+    description: {
+      en: "Online service booking app with flexible scheduling.",
+      id: "Aplikasi pemesanan jasa online dengan jadwal yang fleksibel.",
+      zh: "排期灵活的在线服务预约应用。",
+    },
+    technologies: ["React Native", "Firebase", "Maps API"],
+    featured: false,
+    order: 14,
+  },
+  {
+    _id: "m15",
+    title: "News Portal",
+    slug: "news-portal-web",
+    description: {
+      en: "Online news portal with article categories and latest updates.",
+      id: "Portal berita online dengan kategori artikel dan update terkini.",
+      zh: "带文章分类和最新资讯的在线新闻门户。",
+    },
+    technologies: ["Next.js", "API", "RSS Feed"],
+    featured: false,
+    order: 15,
+  },
+  {
+    _id: "m16",
+    title: "Online Quiz",
+    slug: "online-quiz-app",
+    description: {
+      en: "Exam simulation and quiz platform with automatic grading.",
+      id: "Platform simulasi ujian dan kuis dengan sistem penilaian otomatis.",
+      zh: "自动评分的模拟考试与测验平台。",
+    },
+    technologies: ["React", "State Management", "Animation"],
+    featured: false,
+    order: 16,
+  },
+  {
+    _id: "m17",
+    title: "Weather Tracker",
+    slug: "weather-tracker",
+    description: {
+      en: "Daily weather tracker based on the user's real-time location.",
+      id: "Pelacak cuaca harian berdasarkan lokasi pengguna secara real-time.",
+      zh: "基于用户实时位置的每日天气追踪应用。",
+    },
+    technologies: ["OpenWeatherMap", "React", "Geolocation"],
+    featured: false,
+    order: 17,
+  },
+  {
+    _id: "m18",
+    title: "REST API Server",
+    slug: "rest-api-server",
+    description: {
+      en: "Backend API service for application data processing and exchange.",
+      id: "Layanan backend API untuk pengolahan dan pertukaran data aplikasi.",
+      zh: "用于应用数据处理与交换的后端 API 服务。",
+    },
+    technologies: ["Node.js", "Express", "JWT"],
+    featured: false,
+    order: 18,
+  },
+  {
+    _id: "m19",
+    title: "Personal Diary",
+    slug: "personal-diary-web",
+    description: {
+      en: "Private diary site with encryption and data security features.",
+      id: "Situs catatan harian pribadi dengan fitur enkripsi dan keamanan data.",
+      zh: "带加密与数据安全功能的私人日记网站。",
+    },
+    technologies: ["React", "CryptoJS", "Local Storage"],
+    featured: false,
+    order: 19,
+  },
+  {
+    _id: "m20",
+    title: "Event Ticketing",
+    slug: "event-ticketing",
+    description: {
+      en: "Ticket reservation system for concerts, seminars, and social events.",
+      id: "Sistem reservasi tiket untuk konser, seminar, atau kegiatan sosial.",
+      zh: "演唱会、研讨会和社交活动的票务预订系统。",
+    },
+    technologies: ["Next.js", "QR Code API", "Database"],
+    featured: false,
+    order: 20,
+  },
+];

@@ -14,10 +14,22 @@ export default defineConfig({
     port: 5173,
     strictPort: false,
   },
+  // preview/dev: same-origin /api so the DB-down 503 path matches production
+  preview: {
+    proxy: { "/api": { target: "https://www.4yang-xyao.site", changeOrigin: true } },
+  },
   build: {
+    // split stable vendors into cacheable chunks; routes are lazy-loaded in App.tsx
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/[\\/]framer-motion[\\/]/.test(id)) return "vendor-motion";
+          if (/[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/.test(id))
+            return "vendor-react";
+          if (/[\\/]@tanstack[\\/]react-query[\\/]/.test(id)) return "vendor-query";
+          if (/[\\/](i18next|react-i18next)[\\/]/.test(id)) return "vendor-i18n";
+        },
       },
     },
   },

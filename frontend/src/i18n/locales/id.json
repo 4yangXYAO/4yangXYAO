@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "projects": "Proyek",
+    "about": "Tentang",
+    "stack": "Stack",
+    "contact": "Kontak",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu"
+  },
+  "lang": {
+    "label": "Bahasa"
+  },
+  "common": {
+    "loading": "Memuat",
+    "error": "Ada yang salah.",
+    "retry": "Coba lagi",
+    "back": "Kembali",
+    "viewAll": "Lihat semua",
+    "search": "Cari",
+    "featured": "Unggulan",
+    "all": "Semua",
+    "technologies": "Teknologi",
+    "notFound": "Halaman tidak ditemukan",
+    "notFoundBody": "Halaman ini tidak ada atau sudah dipindahkan.",
+    "goHome": "Ke beranda"
+  },
+  "home": {
+    "status": "Terbuka untuk kolaborasi",
+    "greeting": "Halo, aku",
+    "name": "Kharis Jalaludin",
+    "tagline": "Engineer jaringan di siang hari, web developer di malam hari. Aku bikin hal-hal yang jalannya diam dan nggak rewel.",
+    "motto": "No complain, never explain.",
+    "mottoBy": "dikerjain oleh",
+    "ctaWork": "Lihat karyaku",
+    "ctaContact": "Ngobrol yuk",
+    "skillsLabel": "Bidang garapan",
+    "skillsTitle": "Tiga topi, satu bengkel",
+    "skills": {
+      "network": {
+        "title": "Jaringan & IT Support",
+        "body": "Router, switch, server, monitoring. Infrastruktur kantor harus membosankan — karena membosankan artinya sehat.",
+        "tags": ["Cisco", "Mikrotik", "Linux", "Monitoring"]
+      },
+      "frontend": {
+        "title": "Web Development",
+        "body": "React, TypeScript, Tailwind. Aku peduli kode rapi, loading cepat, dan detail-detail yang jarang orang sadari.",
+        "tags": ["React", "TypeScript", "Next.js", "Vite"]
+      },
+      "ai": {
+        "title": "AI Tooling",
+        "body": "Aku menyambungkan LLM dan agen ke alur kerja asli — pipeline konten, otomasi, asisten yang benar-benar bekerja.",
+        "tags": ["LLM", "Agen", "Otomasi"]
+      }
+    },
+    "marquee": "Rekayasa jaringan · Web development · Otomasi AI · Homelab · Linux · TypeScript · Mikrotik · React",
+    "workLabel": "Karya pilihan",
+    "workTitle": "Yang sudah kubangun",
+    "workBody": "Alat internal, kerjaan klien, dan eksperimen yang ternyata kepakai. Beberapa dari arsip."
+  },
+  "projects": {
+    "title": "Proyek",
+    "subtitle": "Alat, situs, dan sistem yang kubangun — dari monitoring jaringan sampai e-commerce.",
+    "searchPlaceholder": "Cari proyek…",
+    "empty": "Nggak ada proyek yang cocok dengan pencarian itu.",
+    "featuredBadge": "Unggulan",
+    "overview": "Ringkasan",
+    "techStack": "Tech stack",
+    "moreProjects": "Proyek lainnya",
+    "allProjects": "Semua proyek",
+    "visit": "Kunjungi situs",
+    "source": "Kode sumber"
+  },
+  "about": {
+    "label": "Tentang",
+    "title": "Orang di balik terminal",
+    "lead": "Aku Kharis — engineer IT dan jaringan dari Indonesia yang jatuh cinta ke dunia web di antara rak server ketiga dan insiden produksi pertama.",
+    "p1": "Secara profesi aku menjaga jaringan tetap hidup: kabel, konfigurasi, monitoring, dan sesekali telepon jam dua pagi dari orang yang printernya \"tiba-tiba rusak\" (nggak pernah printernya). Secara hobi — yang berubah jadi pekerjaan kedua — aku bikin software: dashboard, toko online, bot, dan asisten AI yang kadang lebih rajin dariku.",
+    "p2": "Aku suka sistem yang di luar tenang, di dalam rapi: cable ties tertata di rak, commit bersih di repo. Sebagian besar yang aku tahu berasal dari merusakkan barang di rumah dulu — biar nggak rusak di tempat kerja.",
+    "valuesTitle": "Caraku bekerja",
+    "values": {
+      "boring": {
+        "title": "Membosankan itu fitur",
+        "body": "Teknologi yang terprediksi, keputusan terdokumentasi, nggak ada trik cerdas jam 15.55 hari Jumat."
+      },
+      "finish": {
+        "title": "Rilis dulu, poles kemudian",
+        "body": "V1 yang jalan mengalahkan rencana yang cantik. Aku iterasi terbuka dan serius menerima masukan."
+      },
+      "curious": {
+        "title": "Tetap penasaran",
+        "body": "Tool baru, protokol baru, model baru — lebih baik dicoba di homelab sendiri daripada cuma dibaca."
+      }
+    },
+    "facts": {
+      "location": "Basis di",
+      "locationValue": "Indonesia",
+      "focus": "Fokus sekarang",
+      "focusValue": "Web app & alur kerja AI",
+      "language": "Bahasa",
+      "languageValue": "Indonesia, Inggris, Mandarin"
+    }
+  },
+  "stack": {
+    "label": "Stack",
+    "title": "Peralatan bengkel",
+    "subtitle": "Software dan hardware yang biasa kupakai, dikelompokkan sesuai keahliannya.",
+    "empty": "Belum ada data stack.",
+    "items": "item",
+    "demo": "Demo langsung",
+    "source": "Kode sumber"
+  },
+  "contact": {
+    "label": "Kontak",
+    "title": "Ngobrol teknis yuk",
+    "subtitle": "Punya proyek, masalah, atau cuma mau debat Mikrotik vs Cisco? Kotak masukku terbuka.",
+    "form": {
+      "name": "Nama kamu",
+      "namePlaceholder": "Nama lengkap",
+      "email": "Email",
+      "emailPlaceholder": "kamu@contoh.com",
+      "message": "Pesan",
+      "messagePlaceholder": "Lagi kerjain apa?",
+      "send": "Kirim pesan",
+      "sending": "Mengirim…",
+      "success": "Pesan terkirim — aku balas secepatnya.",
+      "failed": "Gagal mengirim. Coba lagi atau email langsung ya.",
+      "validation": {
+        "name": "Isi nama dulu dong.",
+        "email": "Format emailnya belum benar.",
+        "message": "Cerita sedikit lebih panjang (minimal 10 karakter)."
+      }
+    },
+    "direct": {
+      "title": "Atau cari aku di sini",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "tagline": "Engineer jaringan & web, membangun diam-diam dari Indonesia.",
+    "credits": "Bersama Alya, Jester, Rena, dan ❤️",
+    "rights": "Hak cipta dilindungi.",
+    "status": "Semua sistem normal"
+  }
+}

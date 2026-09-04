@@ -1,13 +1,31 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { projectService } from "../services/projectService";
 import { PageLoader } from "../components/common/PageLoader";
-import { Button } from "../components/common/Button";
+import { ProjectCard, type CardProject } from "../components/projects/ProjectCard";
+import { Icon } from "../components/common/Icon";
+import { ProjectCover } from "../components/common/ProjectCover";
 import { getImageUrl } from "../utils/constants";
+import { FALLBACK_PROJECTS, type LocalizedText } from "../data/projects";
+
+// Normalized shape covering both API projects and static fallbacks.
+type DetailProject = {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string | LocalizedText;
+  technologies: string[];
+  imageUrl?: string;
+  demoLink?: string;
+  githubLink?: string;
+  featured?: boolean;
+};
 
 export const ProjectDetailPage = () => {
+  const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
+
   const {
     data: project,
     isLoading,
@@ -18,163 +36,174 @@ export const ProjectDetailPage = () => {
     enabled: !!slug,
   });
 
+  const { data: apiProjects } = useQuery({
+    queryKey: ["projects"],
+    queryFn: () => projectService.getAll(),
+  });
+
   if (isLoading) return <PageLoader />;
 
-  if (error || !project) {
+  // API wins; static fallback keeps detail pages working while the DB is down.
+  const fallbackProject = FALLBACK_PROJECTS.find((p) => p.slug === slug);
+  const detail: DetailProject | undefined = project
+    ? {
+      _id: project._id,
+      title: project.title,
+      slug: project.slug,
+      description: project.description,
+      technologies: project.technologies,
+      imageUrl: project.imageUrl,
+      demoLink: project.demoLink,
+      githubLink: project.githubLink,
+      featured: project.featured,
+    }
+    : fallbackProject
+      ? {
+        _id: fallbackProject._id,
+        title: fallbackProject.title,
+        slug: fallbackProject.slug,
+        description: fallbackProject.description,
+        technologies: fallbackProject.technologies,
+        featured: fallbackProject.featured,
+      }
+      : undefined;
+
+  if (!detail) {
     return (
-      <div className="section-spacing text-center font-mono text-[#ff3e3e]">
-        <h1 className="text-4xl font-bold mb-4 uppercase">
-          PROTOCOL_ERROR: NO_ENTRY
-        </h1>
-        <p className="text-gray-500 mb-8 tracking-widest">
-          The requested data stream for {slug?.toUpperCase()} is unavailable.
-        </p>
-        <Link to="/projects">
-          <Button variant="outline">BACK_TO_TERMINAL</Button>
+      <div className="section-y container-x text-center">
+        <p className="text-paper-dim">{t("common.notFound")}</p>
+        <Link to="/projects" className="link-line mt-4 inline-block">
+          {t("projects.allProjects")}
         </Link>
       </div>
     );
   }
 
-  const imageUrl = getImageUrl(project.imageUrl);
+  const description =
+    typeof detail.description === "string"
+      ? detail.description
+      : detail.description[i18n.language as "en" | "id" | "zh"] ??
+      detail.description.en;
+
+  const imageUrl = detail.imageUrl ? getImageUrl(detail.imageUrl) : null;
+
+  const relatedSource: CardProject[] = apiProjects?.length
+    ? apiProjects.map((p) => ({
+      _id: p._id,
+      title: p.title,
+      slug: p.slug,
+      description: p.description,
+      technologies: p.technologies,
+      imageUrl: p.imageUrl,
+      featured: p.featured,
+    }))
+    : FALLBACK_PROJECTS.map((p) => ({
+      _id: p._id,
+      title: p.title,
+      slug: p.slug,
+      description: p.description,
+      technologies: p.technologies,
+      featured: p.featured,
+    }));
+
+  const related = relatedSource
+    .filter((p) => p.slug !== slug)
+    .slice(0, 3);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="section-spacing min-h-screen"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        {/* Cyber Breadcrumbs */}
-        <nav className="flex mb-12 font-mono text-[10px] text-gray-500 tracking-[0.2em] uppercase overflow-x-auto pb-4 border-b border-white/5">
-          <Link
-            to="/"
-            className="hover:text-[#00daf7] transition-colors shrink-0"
-          >
-            ROOT
-          </Link>
-          <span className="mx-4 text-[#00daf7]/40">::</span>
-          <Link
-            to="/projects"
-            className="hover:text-[#00daf7] transition-colors shrink-0"
-          >
-            PROJECT_DATABASE
-          </Link>
-          <span className="mx-4 text-[#00daf7]/40">::</span>
-          <span className="text-[#00daf7] truncate">
-            {project.title.replace(" ", "_")}
-          </span>
-        </nav>
+    <div className="container-x pb-24">
+      <Link
+        to="/projects"
+        className="link-line inline-flex items-center gap-2 pt-28"
+      >
+        <Icon name="arrow-left" size={16} />
+        {t("projects.allProjects")}
+      </Link>
 
-        <div className="lg:grid lg:grid-cols-12 lg:gap-20 items-start">
-          {/* Visual Column */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-12 xl:col-span-8 mb-12 lg:mb-0"
-          >
-            <div className="relative p-2 border border-[#00daf7]/20 bg-[#121212]/30 backdrop-blur-sm">
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#00daf7]" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#00daf7]" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#00daf7]" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#00daf7]" />
-
-              <div className="aspect-video overflow-hidden bg-black">
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt={project.title}
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-8xl grayscale opacity-20">
-                    📷
-                  </div>
-                )}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Info Column */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-12 xl:col-span-4"
-          >
-            <div className="font-mono text-xs text-[#00daf7] uppercase tracking-[0.4em] mb-4">
-              SYSTEM_LOG // 001
-            </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-8 leading-tight uppercase tracking-tighter">
-              {project.title.split(" ").map((w, i) => (
-                <span
-                  key={i}
-                  className={i === 0 ? "text-white" : "text-[#00daf7]"}
-                >
-                  {w}{" "}
-                </span>
-              ))}
-            </h1>
-
-            <div className="flex flex-wrap gap-2 mb-10">
-              {project.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="bg-[#00daf7]/10 text-[#00daf7] px-3 py-1 font-mono text-[10px] tracking-widest border border-[#00daf7]/20 uppercase"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <div className="font-sans text-gray-400 mb-12 leading-relaxed text-lg whitespace-pre-wrap border-l-2 border-white/5 pl-8">
-              {project.description}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {project.demoLink && (
-                <a
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cyber-glow-btn text-xs font-black tracking-[0.2em]"
-                >
-                  LIVE_ACCESS
-                </a>
-              )}
-              {project.githubLink && (
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-[#121212] text-white font-mono text-[10px] tracking-widest border-2 border-white/5 hover:border-[#00daf7]/30 transition-all text-center uppercase flex items-center justify-center"
-                >
-                  SOURCE_CODE
-                </a>
-              )}
-            </div>
-
-            <div className="mt-20 p-6 bg-[#00daf7]/10 border border-[#00daf7]/20">
-              <div className="font-mono text-[9px] text-[#00daf7] tracking-[0.3em] uppercase mb-4 opacity-70">
-                METADATA_STREAM
-              </div>
-              <div className="space-y-2 font-mono text-[10px] text-gray-500">
-                <div className="flex justify-between">
-                  <span>SECURITY_STATUS</span>
-                  <span className="text-[#00daf7]">ENCRYPTED</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>DEPLOYMENT_DATE</span>
-                  <span className="text-white">
-                    {new Date(project.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+      <div className="rounded-2xl overflow-hidden aspect-[21/9] max-h-[420px] mt-6">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={detail.title}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <ProjectCover
+            seed={detail.slug}
+            label={detail.title}
+            className="h-full w-full"
+          />
+        )}
       </div>
-    </motion.div>
+
+      <div className="mt-8 flex items-center gap-3 flex-wrap">
+        <h1 className="text-display-lg font-display text-paper">
+          {detail.title}
+        </h1>
+        {detail.featured && (
+          <span className="bg-ink/80 backdrop-blur border border-amber/30 text-amber font-mono text-[10px] uppercase tracking-wider rounded-full px-2.5 py-1">
+            {t("projects.featuredBadge")}
+          </span>
+        )}
+      </div>
+
+      <p className="text-lead text-paper-dim max-w-3xl whitespace-pre-line mt-4">
+        {description}
+      </p>
+
+      {detail.technologies.length > 0 && (
+        <div className="mt-10">
+          <h2 className="eyebrow">{t("projects.techStack")}</h2>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {detail.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="font-mono text-[11px] text-paper-faint"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {(detail.demoLink || detail.githubLink) && (
+        <div className="mt-10 flex flex-wrap gap-3">
+          {detail.demoLink && (
+            <a
+              href={detail.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              {t("projects.visit")}
+              <Icon name="external" size={16} />
+            </a>
+          )}
+          {detail.githubLink && (
+            <a
+              href={detail.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost inline-flex items-center gap-2"
+            >
+              {t("projects.source")}
+              <Icon name="github" size={16} />
+            </a>
+          )}
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div className="mt-16">
+          <h2 className="eyebrow mb-6">{t("projects.moreProjects")}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {related.map((p) => (
+              <ProjectCard key={p._id} project={p} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

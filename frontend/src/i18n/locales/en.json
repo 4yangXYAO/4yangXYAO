@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "stack": "Stack",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "lang": {
+    "label": "Language"
+  },
+  "common": {
+    "loading": "Loading",
+    "error": "Something went wrong.",
+    "retry": "Try again",
+    "back": "Back",
+    "viewAll": "View all",
+    "search": "Search",
+    "featured": "Featured",
+    "all": "All",
+    "technologies": "Technologies",
+    "notFound": "Page not found",
+    "notFoundBody": "This page doesn't exist or has moved.",
+    "goHome": "Go home"
+  },
+  "home": {
+    "status": "Open for collaboration",
+    "greeting": "Hi, I'm",
+    "name": "Kharis Jalaludin",
+    "tagline": "Network engineer by day, web developer by night. I build things that run quietly and stay fixed.",
+    "motto": "No complain, never explain.",
+    "mottoBy": "executed by",
+    "ctaWork": "See my work",
+    "ctaContact": "Get in touch",
+    "skillsLabel": "What I do",
+    "skillsTitle": "Three hats, one workshop",
+    "skills": {
+      "network": {
+        "title": "Network & IT Support",
+        "body": "Routers, switches, servers, monitoring. I keep office infrastructure boring — because boring means healthy.",
+        "tags": ["Cisco", "Mikrotik", "Linux", "Monitoring"]
+      },
+      "frontend": {
+        "title": "Web Development",
+        "body": "React, TypeScript, Tailwind. I care about clean code, fast load times, and the details most people never notice.",
+        "tags": ["React", "TypeScript", "Next.js", "Vite"]
+      },
+      "ai": {
+        "title": "AI Tooling",
+        "body": "I wire LLMs and agents into real workflows — content pipelines, automation, assistants that actually do something.",
+        "tags": ["LLMs", "Agents", "Automation"]
+      }
+    },
+    "marquee": "Network engineering · Web development · AI automation · Homelab · Linux · TypeScript · Mikrotik · React",
+    "workLabel": "Selected work",
+    "workTitle": "Things I've built",
+    "workBody": "Internal tools, client work, and experiments that stuck around. A few from the archive."
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Tools, sites, and systems I've built — from network monitoring to e-commerce.",
+    "searchPlaceholder": "Search projects…",
+    "empty": "No projects match that search.",
+    "featuredBadge": "Featured",
+    "overview": "Overview",
+    "techStack": "Tech stack",
+    "moreProjects": "More projects",
+    "allProjects": "All projects",
+    "visit": "Visit site",
+    "source": "Source code"
+  },
+  "about": {
+    "label": "About",
+    "title": "The person behind the terminal",
+    "lead": "I'm Kharis — an IT and network engineer in Indonesia who fell in love with the web somewhere between the third rack mount and the first production incident.",
+    "p1": "By trade I keep networks alive: cabling, configuration, monitoring, and the occasional 2 a.m. phone call from someone whose printer is 'suddenly broken' (it's never the printer). By hobby — which became a second job — I build software: dashboards, storefronts, bots, and the odd AI sidekick.",
+    "p2": "I like systems that are quiet on the outside and well-organized on the inside. Cable ties in the rack, clean commits in the repo. Most of what I've learned came from breaking things at home first, so they don't break at work.",
+    "valuesTitle": "How I work",
+    "values": {
+      "boring": {
+        "title": "Boring is a feature",
+        "body": "Predictable tech, documented decisions, nothing clever at 4:55 p.m. on a Friday."
+      },
+      "finish": {
+        "title": "Ship, then polish",
+        "body": "A working v1 beats a beautiful plan. I iterate in public and take feedback seriously."
+      },
+      "curious": {
+        "title": "Stay curious",
+        "body": "New tool, new protocol, new model — I'd rather test it on my homelab than read about it."
+      }
+    },
+    "facts": {
+      "location": "Based in",
+      "locationValue": "Indonesia",
+      "focus": "Currently focused on",
+      "focusValue": "Web apps & AI workflows",
+      "language": "Languages",
+      "languageValue": "Indonesian, English, Chinese"
+    }
+  },
+  "stack": {
+    "label": "Stack",
+    "title": "Tools of the trade",
+    "subtitle": "The software and hardware I reach for, grouped by what they're good at.",
+    "empty": "No stack entries yet.",
+    "items": "items",
+    "demo": "Live demo",
+    "source": "Source"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Let's talk shop",
+    "subtitle": "Got a project, a problem, or just want to argue about Mikrotik vs Cisco? My inbox is open.",
+    "form": {
+      "name": "Your name",
+      "namePlaceholder": "Jane Doe",
+      "email": "Email",
+      "emailPlaceholder": "jane@example.com",
+      "message": "Message",
+      "messagePlaceholder": "What are you working on?",
+      "send": "Send message",
+      "sending": "Sending…",
+      "success": "Message sent — I'll reply soon.",
+      "failed": "Couldn't send that. Please try again or email me directly.",
+      "validation": {
+        "name": "Please enter your name.",
+        "email": "That email doesn't look right.",
+        "message": "Tell me a bit more (at least 10 characters)."
+      }
+    },
+    "direct": {
+      "title": "Or find me elsewhere",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "tagline": "Network & web engineer, building quietly from Indonesia.",
+    "credits": "With Alya, Jester, Rena, and ❤️",
+    "rights": "All rights reserved.",
+    "status": "All systems nominal"
+  }
+}

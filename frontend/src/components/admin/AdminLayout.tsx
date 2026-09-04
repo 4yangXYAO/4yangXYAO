@@ -35,7 +35,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-gray-900 text-white shadow-2xl">
         <div className="p-8">
-          <Link to="/" className="text-2xl font-bold gradient-text">
+          <Link to="/" className="font-display text-2xl font-semibold tracking-tight text-paper">
             Admin Panel
           </Link>
         </div>
@@ -46,11 +46,10 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               <li key={link.to}>
                 <Link
                   to={link.to}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
-                    location.pathname === link.to
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${location.pathname === link.to
                       ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20"
                       : "text-gray-400 hover:text-white hover:bg-gray-800"
-                  }`}
+                    }`}
                 >
                   <span className="text-xl">{link.icon}</span>
                   {link.label}
@@ -98,7 +97,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               className="fixed top-0 left-0 bottom-0 w-72 bg-gray-900 text-white z-50 lg:hidden shadow-2xl flex flex-col"
             >
               <div className="p-6 border-b border-gray-800 flex justify-between items-center">
-                <span className="text-xl font-bold gradient-text">Admin</span>
+                <span className="font-display text-xl font-semibold text-paper">Admin</span>
                 <button
                   onClick={() => setSidebarOpen(false)}
                   className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-800"
@@ -112,11 +111,10 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                     <li key={link.to}>
                       <Link
                         to={link.to}
-                        className={`flex items-center gap-3 px-4 py-4 rounded-2xl font-medium transition-all ${
-                          location.pathname === link.to
+                        className={`flex items-center gap-3 px-4 py-4 rounded-2xl font-medium transition-all ${location.pathname === link.to
                             ? "bg-indigo-600 text-white"
                             : "text-gray-400 hover:text-white"
-                        }`}
+                          }`}
                       >
                         <span className="text-xl">{link.icon}</span>
                         {link.label}
