@@ -1,10 +1,19 @@
 import mongoose from "mongoose";
 
-export const connectDB = async (mongoUri: string): Promise<void> => {
-  if (!mongoUri) {
-    throw new Error("MONGO_URI is required");
-  }
+let conn: Promise<typeof mongoose> | null = null;
 
-  await mongoose.connect(mongoUri);
-  console.log("Connected to MongoDB");
+// Cached singleton: one real connect per cold start; a failed connect is
+// retried on the next call instead of poisoning the cache.
+export const connectDB = (): Promise<typeof mongoose> => {
+  if (!conn) {
+    const uri = process.env.MONGO_URI;
+    if (!uri) {
+      return Promise.reject(new Error("MONGO_URI is required"));
+    }
+    conn = mongoose.connect(uri);
+    conn.catch(() => {
+      conn = null;
+    });
+  }
+  return conn;
 };

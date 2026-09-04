@@ -3,13 +3,7 @@ import { connectDB } from "../config/db";
 import { Profile } from "../models/Profile";
 
 const updateProfileWithSkills = async (): Promise<void> => {
-  const mongoUri = process.env.MONGO_URI;
-
-  if (!mongoUri) {
-    throw new Error("MONGO_URI is required");
-  }
-
-  await connectDB(mongoUri);
+  await connectDB();
 
   const skillsToAdd = [
     "JavaScript",
@@ -35,7 +29,7 @@ const updateProfileWithSkills = async (): Promise<void> => {
     // Add only new skills
     const existingSkills = profile.skills.map(s => s.toLowerCase());
     const newSkills = skillsToAdd.filter(s => !existingSkills.includes(s.toLowerCase()));
-    
+
     if (newSkills.length > 0) {
       profile.skills.push(...newSkills);
       await profile.save();

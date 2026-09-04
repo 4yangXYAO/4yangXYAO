@@ -14,9 +14,20 @@ export const createMessage = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { name, email, message } = req.body;
+  const { name, email, message } = req.body as {
+    name?: unknown;
+    email?: unknown;
+    message?: unknown;
+  };
 
-  if (!name || !email || !message || message.length < 10) {
+  if (
+    typeof name !== "string" ||
+    typeof email !== "string" ||
+    typeof message !== "string" ||
+    !name.trim() ||
+    !email.trim() ||
+    message.trim().length < 10
+  ) {
     res.status(400).json({
       success: false,
       message: "Semua field wajib diisi, min 10 karakter",
@@ -24,12 +35,34 @@ export const createMessage = async (
     return;
   }
 
-  const newMessage = await Message.create({ name, email, message });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+    res.status(400).json({ success: false, message: "Format email tidak valid" });
+    return;
+  }
+  if (name.length > 100 || message.length > 5000) {
+    res.status(400).json({
+      success: false,
+      message: "Name max 100, message max 5000 karakter",
+    });
+    return;
+  }
+
+  const newMessage = await Message.create({
+    name: name.trim(),
+    email: email.trim(),
+    message: message.trim(),
+  });
 
   // Send email notification (asynchronously to not delay the response too much)
-  emailService.sendContactEmail({ name, email, message }).catch((err) => {
-    console.error("Failed to send contact email:", err);
-  });
+  emailService
+    .sendContactEmail({
+      name: newMessage.name,
+      email: newMessage.email,
+      message: newMessage.message,
+    })
+    .catch((err) => {
+      console.error("Failed to send contact email:", err);
+    });
 
   res.status(201).json({ success: true, data: newMessage });
 };

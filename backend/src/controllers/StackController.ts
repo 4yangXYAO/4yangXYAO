@@ -38,23 +38,36 @@ export const createStack = async (
     featured,
     order,
   } = req.body;
-  const imageUrl = await Stack.findById(req.params.id);
-    if (!title || !description) {
-      res
+  const imageUrl = req.file
+    ? `/uploads/${req.file.filename}`
+    : typeof req.body.imageUrl === "string"
+      ? req.body.imageUrl
+      : "";
+  let parsedTech: unknown;
+  try {
+    parsedTech = technologies ? JSON.parse(technologies) : [];
+  } catch {
+    res
+      .status(400)
+      .json({ success: false, message: "Field technologies harus JSON valid" });
+    return;
+  }
+  if (!title || !description) {
+    res
       .status(400)
       .json({ success: false, message: "Title dan description wajib diisi" });
-      return;
-    }
-    const stack = await Stack.create({
-      title,
-      description,
-      technologies: technologies ? JSON.parse(technologies) : [],
-      demoLink: demoLink || "",
-      githubLink: githubLink || "",
-      featured: featured === "true",
-      order: Number(order) || 0,
-      imageUrl,
-    });
+    return;
+  }
+  const stack = await Stack.create({
+    title,
+    description,
+    technologies: parsedTech as string[],
+    demoLink: demoLink || "",
+    githubLink: githubLink || "",
+    featured: featured === "true",
+    order: Number(order) || 0,
+    imageUrl,
+  });
   res.status(201).json({ success: true, data: stack });
 };
 
@@ -72,7 +85,20 @@ export const updateStack = async (
     order,
   } = req.body;
   const stack = await Stack.findById(req.params.id);
-  
+
+
+
+  let parsedTech: unknown;
+  if (technologies !== undefined) {
+    try {
+      parsedTech = JSON.parse(technologies);
+    } catch {
+      res
+        .status(400)
+        .json({ success: false, message: "Field technologies harus JSON valid" });
+      return;
+    }
+  }
 
   if (!stack) {
     res.status(404).json({ success: false, message: "Stack not found" });
@@ -81,15 +107,15 @@ export const updateStack = async (
 
   stack.title = title || stack.title;
   stack.description = description || stack.description;
-  stack.technologies = technologies
-    ? JSON.parse(technologies)
-    : stack.technologies;
-stack.demoLink = demoLink !== undefined ? demoLink : stack.demoLink;
-stack.githubLink =
-  githubLink !== undefined ? githubLink : stack.githubLink;
-stack.featured =
-  featured !== undefined ? featured === "true" : stack.featured;
-stack.order = order !== undefined ? Number(order) : stack.order;
+  if (parsedTech !== undefined) {
+    stack.technologies = parsedTech as string[];
+  }
+  stack.demoLink = demoLink !== undefined ? demoLink : stack.demoLink;
+  stack.githubLink =
+    githubLink !== undefined ? githubLink : stack.githubLink;
+  stack.featured =
+    featured !== undefined ? featured === "true" : stack.featured;
+  stack.order = order !== undefined ? Number(order) : stack.order;
 
   await stack.save();
   res.json({ success: true, data: stack });

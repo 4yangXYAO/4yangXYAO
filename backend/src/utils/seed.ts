@@ -4,13 +4,7 @@ import { connectDB } from "../config/db";
 import { User } from "../models/User";
 
 const runSeed = async (): Promise<void> => {
-  const mongoUri = process.env.MONGO_URI;
-
-  if (!mongoUri) {
-    throw new Error("MONGO_URI is required");
-  }
-
-  await connectDB(mongoUri);
+  await connectDB();
 
   const username = process.env.ADMIN_USERNAME || "admin";
   const email = process.env.ADMIN_EMAIL || "admin@example.com";

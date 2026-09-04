@@ -19,6 +19,20 @@ interface ContactEmailParams {
   message: string;
 }
 
+// User-controlled strings land in an HTML email; escape before interpolation.
+const escapeHtml = (s: string): string =>
+  s.replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[c] as string,
+  );
+
 export const emailService = {
   sendContactEmail: async ({ name, email, message }: ContactEmailParams) => {
     const mailOptions = {
@@ -29,11 +43,11 @@ export const emailService = {
       html: `
         <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px;">
           <h2 style="color: #00daf7;">New Contact Message</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
           <p><strong>Message:</strong></p>
           <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 4px solid #00daf7;">
-            ${message.replace(/\n/g, "<br>")}
+            ${escapeHtml(message).replace(/\n/g, "<br>")}
           </div>
           <hr style="margin-top: 20px; border: 0; border-top: 1px solid #eee;">
           <p style="font-size: 12px; color: #888;">This email was sent from your portfolio system.</p>
